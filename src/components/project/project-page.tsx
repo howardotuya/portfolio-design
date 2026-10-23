@@ -337,7 +337,8 @@ function Slides({ project }: { project: Project }) {
         style={{ "--gap": px(21), "--gx": px(20), "--gy": px(38) } as CSSProperties}
       >
         {project.slides.map((caption, i) => (
-          // Each tile renders (and fetches its slide) only as it nears the viewport.
+          // Deferred while the page loads, so the slides don't compete with the
+          // cover; the lightbox lifts it at load (see there).
           <li
             key={caption}
             className="defer-render [--defer-h:240px] lg:[--defer-h:calc(400*var(--px))]"

@@ -47,11 +47,14 @@ export function Lightbox({ slides, title }: { slides: LightboxSlide[]; title: st
   const fetchAhead = (i: number) => setAhead((a) => (a.has(i) ? a : new Set(a).add(i)));
   const fetchNearest = () => {
     if (!opened) return;
-    for (let d = 1; d < count; d++) {
-      for (const i of [(index + d) % count, (index - d + count) % count]) {
-        if (!ahead.has(i)) return fetchAhead(i);
+    setAhead((a) => {
+      for (let d = 1; d < count; d++) {
+        for (const i of [(index + d) % count, (index - d + count) % count]) {
+          if (!a.has(i)) return new Set(a).add(i);
+        }
       }
-    }
+      return a;
+    });
   };
   const go = (step: number) => setIndex((index + step + count) % count);
 
@@ -71,10 +74,19 @@ export function Lightbox({ slides, title }: { slides: LightboxSlide[]; title: st
       dialog.current?.showModal();
       close.current?.focus();
     };
+    // The tiles start as defer-render so their slides wait until the cover has
+    // loaded. Kept after that, content-visibility would hold each fetch until
+    // the tile is half a screen away, and a fast scroll meets blank tiles:
+    // lift it at load and let lazy loading's wider margin fetch ahead.
+    const undefer = () =>
+      grid?.querySelectorAll(".defer-render").forEach((li) => li.classList.remove("defer-render"));
+    if (document.readyState === "complete") undefer();
+    else addEventListener("load", undefer, { once: true });
     grid?.addEventListener("pointerover", onIntent);
     grid?.addEventListener("focusin", onIntent);
     grid?.addEventListener("click", onClick);
     return () => {
+      removeEventListener("load", undefer);
       grid?.removeEventListener("pointerover", onIntent);
       grid?.removeEventListener("focusin", onIntent);
       grid?.removeEventListener("click", onClick);
