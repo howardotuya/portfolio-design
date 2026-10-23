@@ -1,8 +1,8 @@
-// Minimal static server for `out/`, close to how Vercel serves a static export:
+// Minimal static server for `out/`, close to how Netlify serves the site:
 // clean URLs (/app -> app.html), gzip/brotli, immutable caching for hashed
-// assets. Used by shoot.mjs and lighthouse.mjs.
+// assets and the rules in out/_headers. Used by shoot.mjs and lighthouse.mjs.
 // Usage: node scripts/serve.mjs [port=4000]
-import { createReadStream, existsSync, statSync } from "node:fs";
+import { createReadStream, existsSync, readFileSync, statSync } from "node:fs";
 import http from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -36,9 +36,32 @@ function resolveFile(dir, urlPath) {
   return null;
 }
 
+// Netlify's _headers format: a path pattern (`*` matches anything), then
+// indented `Name: value` lines.
+function headerRules(dir) {
+  const file = path.join(dir, "_headers");
+  if (!existsSync(file)) return [];
+  const rules = [];
+  for (const line of readFileSync(file, "utf8").split("\n")) {
+    if (!line.trim() || line.trim().startsWith("#")) continue;
+    if (!/^\s/.test(line)) {
+      const pattern = line
+        .trim()
+        .replace(/[.+?^${}()|[\]\\]/g, "\\$&")
+        .replaceAll("*", ".*");
+      rules.push({ pattern: new RegExp(`^${pattern}$`), headers: [] });
+    } else {
+      const colon = line.indexOf(":");
+      rules.at(-1)?.headers.push([line.slice(0, colon).trim(), line.slice(colon + 1).trim()]);
+    }
+  }
+  return rules;
+}
+
 export function serve(port = 4000) {
   const dir = path.join(root, "out");
   if (!existsSync(dir)) throw new Error("No build in out/. Run `pnpm build` first.");
+  const rules = headerRules(dir);
 
   const server = http.createServer((req, res) => {
     const file = resolveFile(dir, req.url ?? "/");
@@ -51,6 +74,11 @@ export function serve(port = 4000) {
       "Cache-Control",
       req.url?.startsWith("/_next/static/") ? "public, max-age=31536000, immutable" : "no-cache",
     );
+    const urlPath = (req.url ?? "/").split("?")[0];
+    for (const rule of rules) {
+      if (rule.pattern.test(urlPath))
+        for (const [name, value] of rule.headers) res.setHeader(name, value);
+    }
 
     const accept = String(req.headers["accept-encoding"] ?? "");
     let stream = createReadStream(target);

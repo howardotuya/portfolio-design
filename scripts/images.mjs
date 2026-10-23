@@ -1,8 +1,10 @@
 // Turn the source images exported from Figma (images/**) into AVIF + WebP at a
 // fixed width ladder, and write a typed manifest the <Picture> component reads.
 // Static export has no image optimizer, so this replaces it.
-// images/work/yolura/01.png → public/work/yolura/01-<width>.{avif,webp}, named
-// "work/yolura/01" in the manifest.
+// images/work/yolura/01.png → public/img/work/yolura/01-<width>.<hash>.{avif,webp},
+// named "work/yolura/01" in the manifest. The hash covers the source file and
+// the encoder settings, so a changed image gets new URLs and the files can be
+// cached for a year (public/_headers).
 // Usage: node scripts/images.mjs [folder …]
 // With folders (e.g. `me`), only those top-level folders are re-rendered and
 // the rest of the manifest is kept: the full run takes a while.
@@ -15,6 +17,7 @@ import {
   statSync,
   writeFileSync,
 } from "node:fs";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import sharp from "sharp";
 import { root } from "./serve.mjs";
@@ -22,9 +25,11 @@ import { root } from "./serve.mjs";
 // Keep in sync with `images.imageSizes` + `images.deviceSizes` in next.config.ts,
 // so every width next/image asks the loader for exists on disk.
 const LADDER = [48, 96, 160, 240, 320, 480, 640, 800, 960, 1280, 1600, 1920, 2560, 3840];
+const ENCODE = { avif: { quality: 55, effort: 6 }, webp: { quality: 78, effort: 6 } };
 
 const srcDir = path.join(root, "images");
-const publicDir = path.join(root, "public");
+// Only rendered images live under /img/, so one _headers rule can cache them.
+const publicDir = path.join(root, "public", "img");
 const manifestFile = path.join(root, "src", "lib", "images.gen.ts");
 const only = process.argv.slice(2);
 const included = (dir) => !only.length || only.includes(dir);
@@ -39,7 +44,7 @@ function walk(dir) {
     });
 }
 
-// Each top-level folder in images/ owns the same folder in public/.
+// Each top-level folder in images/ owns the same folder in public/img/.
 const folders = readdirSync(srcDir).filter(
   (dir) => statSync(path.join(srcDir, dir)).isDirectory() && included(dir),
 );
@@ -63,7 +68,13 @@ for (const file of folders.flatMap((dir) => walk(path.join(srcDir, dir)))) {
   const name = path.join(dir, base).split(path.sep).join("/");
   const outDir = path.join(publicDir, dir);
   mkdirSync(outDir, { recursive: true });
-  const input = sharp(file);
+  const source = readFileSync(file);
+  const hash = createHash("sha256")
+    .update(source)
+    .update(JSON.stringify(ENCODE))
+    .digest("hex")
+    .slice(0, 8);
+  const input = sharp(source);
 
   const { width, height } = await input.metadata();
   const widths = LADDER.filter((w) => w < width);
@@ -72,13 +83,13 @@ for (const file of folders.flatMap((dir) => walk(path.join(srcDir, dir)))) {
 
   for (const w of widths) {
     const resized = input.clone().resize({ width: w, withoutEnlargement: true });
-    const avif = await resized.clone().avif({ quality: 55, effort: 6 }).toBuffer();
-    const webp = await resized.clone().webp({ quality: 78, effort: 6 }).toBuffer();
-    writeFileSync(path.join(outDir, `${base}-${w}.avif`), avif);
-    writeFileSync(path.join(outDir, `${base}-${w}.webp`), webp);
+    const avif = await resized.clone().avif(ENCODE.avif).toBuffer();
+    const webp = await resized.clone().webp(ENCODE.webp).toBuffer();
+    writeFileSync(path.join(outDir, `${base}-${w}.${hash}.avif`), avif);
+    writeFileSync(path.join(outDir, `${base}-${w}.${hash}.webp`), webp);
     bytes += avif.length + webp.length;
   }
-  manifest[name] = { width, height, widths };
+  manifest[name] = { width, height, hash, widths };
   console.log(`${name.padEnd(28)} ${width}×${height}  → ${widths.join(", ")}`);
 }
 

@@ -8,7 +8,7 @@ export function imageUrl(name: string, width: number, format: ImageFormat) {
   const meta = images[name as ImageName];
   if (!meta) throw new Error(`Unknown image "${name}". Run: pnpm images`);
   const w = meta.widths.find((v) => v >= width) ?? meta.widths[meta.widths.length - 1];
-  return `/${name}-${w}.${format}`;
+  return `/img/${name}-${w}.${meta.hash}.${format}`;
 }
 
 export default function webpLoader({ src, width }: { src: string; width: number }) {

@@ -5,14 +5,20 @@ server runtime, no API routes and no environment variables.
 
 Production URL: `https://design.howardotuya.com`
 
-## One-time Vercel setup
+## Netlify
 
-1. In Vercel, **Add New → Project** and import this repository.
-2. Framework preset: **Next.js**. Leave the root directory, build, install and output settings on
-   their defaults. Vercel sees `pnpm-lock.yaml` and installs with pnpm.
-3. **Settings → General → Node.js Version**: `22.x`.
-4. **Settings → Domains**: add `design.howardotuya.com`, then create the DNS record Vercel shows (a
-   `CNAME` for `design`) at the `howardotuya.com` DNS provider.
+The site is hosted on Netlify, building from `main`:
+
+- **Build command:** `pnpm build`. Netlify sees `pnpm-lock.yaml` and installs with pnpm.
+- **Publish directory:** `out`
+- **Node:** 22, from `.nvmrc`.
+- **Domain:** `design.howardotuya.com` under **Domain management**, with a `CNAME` for `design`
+  pointing at the site's `.netlify.app` address at the `howardotuya.com` DNS provider.
+
+`public/_headers` is copied into `out/` and sets the response headers: `/img/` (the rendered
+images) is cached for a year as immutable (their file names carry a content hash, see Images). Everything else keeps
+Netlify's default, which revalidates on every request. `/_next/static/` is cached as immutable by
+Netlify's Next.js support. `pnpm preview` applies the same `_headers` rules locally.
 
 ## Checks before deploying
 
@@ -38,10 +44,11 @@ Local Lighthouse swings with machine load; check `uptime` and judge by the media
 
 Sources are in `images/` (slides at 2x from the deck files, web-site hero crops, and the polaroid
 photos in `images/me/`, cropped and listed in `photos` in `src/content/site.ts`). They're
-pre-rendered:
+pre-rendered, with a hash of the source file in each name (`01-1280.1d3265be.avif`), so a
+replaced image gets new URLs and the year-long cache never serves a stale one:
 
 ```bash
-pnpm images      # AVIF + WebP width ladder into public/, manifest in src/lib/images.gen.ts
+pnpm images      # AVIF + WebP width ladder into public/img/, manifest in src/lib/images.gen.ts
 pnpm images me   # just one folder (the full run takes a while)
 pnpm og       # 1200×630 Open Graph cards for the project pages (public/og/)
 ```

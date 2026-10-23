@@ -3,6 +3,7 @@ export const images = {
   "me/2025": {
     "width": 760,
     "height": 839,
+    "hash": "612cf50c",
     "widths": [
       48,
       96,
@@ -17,6 +18,7 @@ export const images = {
   "me/me-2026": {
     "width": 800,
     "height": 800,
+    "hash": "a9d8c337",
     "widths": [
       48,
       96,
@@ -31,6 +33,7 @@ export const images = {
   "me/my-desk": {
     "width": 800,
     "height": 800,
+    "hash": "6b1f4613",
     "widths": [
       48,
       96,
@@ -45,6 +48,7 @@ export const images = {
   "me/workspace": {
     "width": 760,
     "height": 840,
+    "hash": "2b2c558f",
     "widths": [
       48,
       96,
@@ -59,6 +63,7 @@ export const images = {
   "web/buka": {
     "width": 2880,
     "height": 1620,
+    "hash": "bf507b36",
     "widths": [
       48,
       96,
@@ -79,6 +84,7 @@ export const images = {
   "web/ekofest": {
     "width": 2880,
     "height": 1620,
+    "hash": "ed8bb029",
     "widths": [
       48,
       96,
@@ -99,6 +105,7 @@ export const images = {
   "web/kobo": {
     "width": 2880,
     "height": 1620,
+    "hash": "703a3f79",
     "widths": [
       48,
       96,
@@ -119,6 +126,7 @@ export const images = {
   "work/agbe-report/01": {
     "width": 3840,
     "height": 2160,
+    "hash": "09dab5d9",
     "widths": [
       48,
       96,
@@ -139,6 +147,7 @@ export const images = {
   "work/agbe-report/02": {
     "width": 3840,
     "height": 2160,
+    "hash": "d2260395",
     "widths": [
       48,
       96,
@@ -159,6 +168,7 @@ export const images = {
   "work/agbe-report/03": {
     "width": 3840,
     "height": 2160,
+    "hash": "b293e501",
     "widths": [
       48,
       96,
@@ -179,6 +189,7 @@ export const images = {
   "work/agbe-report/04": {
     "width": 3840,
     "height": 2160,
+    "hash": "e9054413",
     "widths": [
       48,
       96,
@@ -199,6 +210,7 @@ export const images = {
   "work/agbe-report/05": {
     "width": 3840,
     "height": 2160,
+    "hash": "a0001322",
     "widths": [
       48,
       96,
@@ -219,6 +231,7 @@ export const images = {
   "work/agbe-report/06": {
     "width": 3840,
     "height": 2160,
+    "hash": "d3a3380d",
     "widths": [
       48,
       96,
@@ -239,6 +252,7 @@ export const images = {
   "work/eko-sound/01": {
     "width": 3840,
     "height": 2160,
+    "hash": "8e679b63",
     "widths": [
       48,
       96,
@@ -259,6 +273,7 @@ export const images = {
   "work/eko-sound/02": {
     "width": 3840,
     "height": 2160,
+    "hash": "b09d45f0",
     "widths": [
       48,
       96,
@@ -279,6 +294,7 @@ export const images = {
   "work/eko-sound/03": {
     "width": 3840,
     "height": 2160,
+    "hash": "13c5c052",
     "widths": [
       48,
       96,
@@ -299,6 +315,7 @@ export const images = {
   "work/eko-sound/04": {
     "width": 3840,
     "height": 2160,
+    "hash": "659699ba",
     "widths": [
       48,
       96,
@@ -319,6 +336,7 @@ export const images = {
   "work/eko-sound/05": {
     "width": 3840,
     "height": 2160,
+    "hash": "4b14d789",
     "widths": [
       48,
       96,
@@ -339,6 +357,7 @@ export const images = {
   "work/eko-sound/06": {
     "width": 3840,
     "height": 2160,
+    "hash": "ca4b252d",
     "widths": [
       48,
       96,
@@ -359,6 +378,7 @@ export const images = {
   "work/field-guide/01": {
     "width": 3840,
     "height": 2160,
+    "hash": "f3a7d7e9",
     "widths": [
       48,
       96,
@@ -379,6 +399,7 @@ export const images = {
   "work/field-guide/02": {
     "width": 3840,
     "height": 2160,
+    "hash": "ca17b02b",
     "widths": [
       48,
       96,
@@ -399,6 +420,7 @@ export const images = {
   "work/field-guide/03": {
     "width": 3840,
     "height": 2160,
+    "hash": "3d322627",
     "widths": [
       48,
       96,
@@ -419,6 +441,7 @@ export const images = {
   "work/field-guide/04": {
     "width": 3840,
     "height": 2160,
+    "hash": "dec55409",
     "widths": [
       48,
       96,
@@ -439,6 +462,7 @@ export const images = {
   "work/field-guide/05": {
     "width": 3840,
     "height": 2160,
+    "hash": "3b49c6ba",
     "widths": [
       48,
       96,
@@ -459,6 +483,7 @@ export const images = {
   "work/field-guide/06": {
     "width": 3840,
     "height": 2160,
+    "hash": "a3c22b8e",
     "widths": [
       48,
       96,
@@ -479,6 +504,7 @@ export const images = {
   "work/lagoon-line/01": {
     "width": 3840,
     "height": 2160,
+    "hash": "c6e64f01",
     "widths": [
       48,
       96,
@@ -499,6 +525,7 @@ export const images = {
   "work/lagoon-line/02": {
     "width": 3840,
     "height": 2160,
+    "hash": "f081a9fd",
     "widths": [
       48,
       96,
@@ -519,6 +546,7 @@ export const images = {
   "work/lagoon-line/03": {
     "width": 3840,
     "height": 2160,
+    "hash": "6a088048",
     "widths": [
       48,
       96,
@@ -539,6 +567,7 @@ export const images = {
   "work/lagoon-line/04": {
     "width": 3840,
     "height": 2160,
+    "hash": "0bdee50c",
     "widths": [
       48,
       96,
@@ -559,6 +588,7 @@ export const images = {
   "work/lagoon-line/05": {
     "width": 3840,
     "height": 2160,
+    "hash": "446ae0b5",
     "widths": [
       48,
       96,
@@ -579,6 +609,7 @@ export const images = {
   "work/yolura/01": {
     "width": 3840,
     "height": 2160,
+    "hash": "1d3265be",
     "widths": [
       48,
       96,
@@ -599,6 +630,7 @@ export const images = {
   "work/yolura/02": {
     "width": 3840,
     "height": 2160,
+    "hash": "84225d5f",
     "widths": [
       48,
       96,
@@ -619,6 +651,7 @@ export const images = {
   "work/yolura/03": {
     "width": 3840,
     "height": 2160,
+    "hash": "1c67f677",
     "widths": [
       48,
       96,
@@ -639,6 +672,7 @@ export const images = {
   "work/yolura/04": {
     "width": 3840,
     "height": 2160,
+    "hash": "c773fa75",
     "widths": [
       48,
       96,
@@ -659,6 +693,7 @@ export const images = {
   "work/yolura/05": {
     "width": 3840,
     "height": 2160,
+    "hash": "feb0ed62",
     "widths": [
       48,
       96,
@@ -679,6 +714,7 @@ export const images = {
   "work/yolura/06": {
     "width": 3840,
     "height": 2160,
+    "hash": "37c5c129",
     "widths": [
       48,
       96,

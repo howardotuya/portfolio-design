@@ -1,0 +1,7 @@
+# Netlify response headers (copied to out/ by the build).
+# Everything under /img/ is a rendered image with a content hash in its name
+# (scripts/images.mjs): a changed image gets new URLs, so browsers can keep
+# these for a year without asking again. Pages, /og/ and the rest keep
+# Netlify's default.
+/img/*
+  Cache-Control: public, max-age=31536000, immutable

@@ -1,5 +1,5 @@
 // Lighthouse (default mobile profile: Moto G Power, simulated slow 4G) against
-// the production build, served the way Vercel would serve it. Local runs are
+// the production build, served the way Netlify serves it. Local runs are
 // noisy, so each route runs several times and the median run is reported.
 // Usage: node scripts/lighthouse.mjs [route ...] [--runs=3]   (default route: /)
 import { mkdirSync, writeFileSync } from "node:fs";
