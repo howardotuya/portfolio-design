@@ -6,8 +6,9 @@ import { RevealScript } from "@/components/reveal-script";
 import { site } from "@/content/site";
 import "./globals.css";
 
-// The hero name and headline: preloaded. Only `latin` is preloaded; other
-// subsets (Inter's Vietnamese range has Ẹ/Ọ) load on demand.
+// The hero name: preloaded. The text faces come first as cuts of just the
+// characters the site uses (scripts/font-subsets.mjs); Google's full subsets
+// sit behind them and only load if a page uses a character the cuts lack.
 const jersey = Jersey_10({
   subsets: ["latin"],
   weight: "400",
@@ -18,6 +19,7 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
+  preload: false,
 });
 const gochi = Gochi_Hand({
   subsets: ["latin"],
@@ -33,6 +35,32 @@ const spaceMono = Space_Mono({
   variable: "--font-space-mono",
   display: "swap",
   preload: false,
+});
+
+// No fallback faces of their own: a character missing from a cut must fall
+// through to Google's subsets, not to a local Arial.
+const interCore = localFont({
+  src: "../fonts/inter-core.woff2",
+  weight: "400 600",
+  variable: "--font-inter-core",
+  display: "swap",
+  adjustFontFallback: false,
+});
+const gochiCore = localFont({
+  src: "../fonts/gochi-core.woff2",
+  weight: "400",
+  variable: "--font-gochi-core",
+  display: "swap",
+  preload: false,
+  adjustFontFallback: false,
+});
+const monoCore = localFont({
+  src: "../fonts/mono-core.woff2",
+  weight: "700",
+  variable: "--font-mono-core",
+  display: "swap",
+  preload: false,
+  adjustFontFallback: false,
 });
 
 // Ẹ ẹ Ọ ọ Ṣ ṣ ₦, the combining grave / acute / dot below, and ẹ̀ ẹ́ ọ̀ ọ́ drawn
@@ -97,7 +125,19 @@ export const viewport: Viewport = {
   themeColor: "#f4f3ef",
 };
 
-const fonts = [jersey, inter, gochi, spaceMono, pixelPatch, handPatch, monoArrows, sansArrows];
+const fonts = [
+  jersey,
+  inter,
+  gochi,
+  spaceMono,
+  interCore,
+  gochiCore,
+  monoCore,
+  pixelPatch,
+  handPatch,
+  monoArrows,
+  sansArrows,
+];
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (

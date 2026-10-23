@@ -101,6 +101,7 @@ export function Lightbox({ slides, title }: { slides: LightboxSlide[]; title: st
               width={slide.width}
               height={slide.height}
               draggable={false}
+              loading="lazy"
               className="absolute inset-0 size-full object-contain drop-shadow-[0_16px_36px_rgb(0_0_0/0.35)] motion-safe:animate-[fade-up_350ms_var(--ease-out-expo)_both]"
             />
           </picture>

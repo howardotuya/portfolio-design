@@ -19,7 +19,8 @@
     "shoot": "node scripts/shoot.mjs",
     "lighthouse": "node scripts/lighthouse.mjs",
     "og": "node scripts/og.mjs",
-    "glyphs": "python3 scripts/glyph-patches.py"
+    "glyphs": "python3 scripts/glyph-patches.py",
+    "fonts": "node scripts/font-subsets.mjs"
   },
   "dependencies": {
     "next": "16.4.2",

@@ -330,7 +330,11 @@ function Slides({ project }: { project: Project }) {
         style={{ "--gap": px(21), "--gx": px(20), "--gy": px(38) } as CSSProperties}
       >
         {project.slides.map((caption, i) => (
-          <li key={caption}>
+          // Each tile renders (and fetches its slide) only as it nears the viewport.
+          <li
+            key={caption}
+            className="defer-render [--defer-h:240px] lg:[--defer-h:calc(400*var(--px))]"
+          >
             <button
               type="button"
               data-slide={i}

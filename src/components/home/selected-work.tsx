@@ -29,7 +29,8 @@ function FolderCard({ project, index }: { project: Project; index: number }) {
   return (
     <article
       className={cn(
-        "group relative lg:sticky lg:top-(--stick)",
+        // Each card renders (and loads its cover) only as it nears the viewport.
+        "group relative defer-render [--defer-h:430px] lg:sticky lg:top-(--stick) lg:[--defer-h:calc(566*var(--px))]",
         index > 0 && "mt-5 lg:mt-[calc(-102*var(--px))]",
         light ? "text-white" : "text-ink surface-yellow",
       )}
@@ -150,7 +151,7 @@ export function SelectedWork() {
     <section
       id="work"
       aria-labelledby="work-title"
-      className="container-page pt-16 defer-render [--defer-h:2600px] lg:pt-[calc(84*var(--px))]"
+      className="container-page pt-16 lg:pt-[calc(84*var(--px))]"
     >
       <p
         className="font-hand text-label-hand lg:text-(length:--fs)"
