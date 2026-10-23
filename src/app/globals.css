@@ -21,6 +21,8 @@
    * small "01–04" numbers. Same rule as Kòbò and Bùkà: darken text, not fills.
    */
   --color-orange-ink: #b54a20;
+  /* The 1px edge on slide images ("Soft lift" in Figma). */
+  --color-slide-edge: #d9d6ce;
   /* Not a Figma variable: the red of the ♥ emoji in the Figma render of "♥ CONTACT". */
   --color-heart: #e0245e;
 }
@@ -114,6 +116,8 @@
   --shadow-paper: 0 4px 10px rgb(0 0 0 / 0.12);
   --shadow-lift: 0 10px 28px rgb(0 0 0 / 0.14);
   --shadow-lifted: 0 16px 36px rgb(0 0 0 / 0.18);
+  --shadow-slide: 0 2px 4px rgb(0 0 0 / 0.06), 0 14px 32px -6px rgb(0 0 0 / 0.08);
+  --shadow-slide-hover: 0 2px 4px rgb(0 0 0 / 0.06), 0 20px 40px -8px rgb(0 0 0 / 0.12);
 }
 
 :root {
@@ -179,6 +183,39 @@
   :focus-visible {
     outline-width: 3px;
     border-radius: 2px;
+  }
+}
+
+/*
+ * "Soft lift" (Figma, all five project pages): every slide image gets a hairline
+ * edge, rounded corners that clip it, and a soft shadow, so cream and white
+ * slides don't melt into the paper. A component class, so utilities on the same
+ * element (the next-project card's own hover, say) still win.
+ */
+@layer components {
+  .slide-frame {
+    border: 1px solid var(--color-slide-edge);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow-slide);
+    transition:
+      transform 200ms var(--ease-out-expo),
+      box-shadow 200ms;
+  }
+
+  @media (hover: hover) {
+    .slide-frame:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-slide-hover);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slide-frame,
+    .slide-frame:hover {
+      transition: none;
+      transform: none;
+    }
   }
 }
 

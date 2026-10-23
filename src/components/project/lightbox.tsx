@@ -91,20 +91,22 @@ export function Lightbox({ slides, title }: { slides: LightboxSlide[]; title: st
             swipe.current = null;
           }}
         >
-          <picture key={index}>
-            <source type="image/avif" srcSet={slide.avif} sizes="100vw" />
-            <img
-              src={slide.src}
-              srcSet={slide.webp}
-              sizes="100vw"
-              alt={slide.alt}
-              width={slide.width}
-              height={slide.height}
-              draggable={false}
-              loading="lazy"
-              className="absolute inset-0 size-full object-contain drop-shadow-[0_16px_36px_rgb(0_0_0/0.35)] motion-safe:animate-[fade-up_350ms_var(--ease-out-expo)_both]"
-            />
-          </picture>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <picture key={index} className="contents">
+              <source type="image/avif" srcSet={slide.avif} sizes="100vw" />
+              <img
+                src={slide.src}
+                srcSet={slide.webp}
+                sizes="100vw"
+                alt={slide.alt}
+                width={slide.width}
+                height={slide.height}
+                draggable={false}
+                loading="lazy"
+                className="slide-frame h-auto max-h-full w-auto max-w-full object-contain motion-safe:animate-[fade-up_350ms_var(--ease-out-expo)_both]"
+              />
+            </picture>
+          </div>
         </div>
 
         <div className="flex items-center justify-between gap-4">

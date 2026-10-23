@@ -155,7 +155,7 @@ function ProjectHero({ project }: { project: Project }) {
 
       {/* The cover, taped down; it morphs from the home card's cover. */}
       <div className="relative mt-9 lg:mt-(--gap)" style={{ "--gap": px(80) } as CSSProperties}>
-        <div style={{ viewTransitionName: `cover-${project.slug}` }}>
+        <div className="slide-frame" style={{ viewTransitionName: `cover-${project.slug}` }}>
           <Picture
             name={cover(project)}
             alt={`${project.title}: cover slide`}
@@ -340,7 +340,7 @@ function Slides({ project }: { project: Project }) {
             <button
               type="button"
               data-slide={i}
-              className="group block w-full cursor-zoom-in overflow-hidden text-left"
+              className="slide-frame block w-full cursor-zoom-in text-left"
               aria-label={`Open slide ${i + 1}: ${caption}`}
             >
               <Picture
@@ -350,7 +350,7 @@ function Slides({ project }: { project: Project }) {
                 height={332}
                 sizes="(width >= 64rem) min(41vw, 590px), calc(100vw - 2 * var(--gutter))"
                 loading="lazy"
-                className="aspect-video w-full object-cover transition-[scale] duration-700 ease-out-expo group-hover:scale-[1.02] motion-reduce:transition-none"
+                className="aspect-video w-full object-cover"
               />
             </button>
             <p
@@ -409,7 +409,7 @@ function NextProject({ project }: { project: Project }) {
         </p>
       </div>
       <div
-        className="order-1 transition-[translate,rotate,box-shadow] duration-500 ease-out-expo group-hover:-translate-y-2 group-hover:-rotate-2 group-hover:shadow-lifted motion-reduce:transition-none lg:order-none lg:w-(--w) lg:shrink-0"
+        className="slide-frame order-1 transition-[translate,rotate,box-shadow] duration-500 ease-out-expo group-hover:-translate-y-2 group-hover:-rotate-2 group-hover:shadow-slide-hover motion-reduce:transition-none lg:order-none lg:w-(--w) lg:shrink-0"
         style={{ "--w": px(320), viewTransitionName: `cover-${next.slug}` } as CSSProperties}
       >
         <Picture
