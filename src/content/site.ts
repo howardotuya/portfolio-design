@@ -40,7 +40,7 @@ export const photos = {
   me: {
     caption: "me, 2026",
     image: "me/me-2026",
-    alt: "Howard in a red football shirt, taking a mirror selfie at the gym",
+    alt: "Howard in round glasses and a black T-shirt, a selfie on the rooftop",
   },
   desk: {
     caption: "my desk",

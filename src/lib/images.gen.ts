@@ -18,7 +18,7 @@ export const images = {
   "me/me-2026": {
     "width": 800,
     "height": 800,
-    "hash": "a9d8c337",
+    "hash": "a905bd93",
     "widths": [
       48,
       96,
