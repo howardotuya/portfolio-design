@@ -79,10 +79,12 @@ function ProjectHero({ project }: { project: Project }) {
       </p>
 
       <h1
-        className="-ml-[0.033em] font-pixel text-(length:--fs-sm) leading-[0.9] whitespace-nowrap uppercase lg:mt-(--gap) lg:text-(length:--fs-lg)"
+        className="mt-2.5 -ml-[0.033em] font-pixel text-(length:--fs-sm) leading-[0.9] whitespace-nowrap uppercase lg:mt-(--gap) lg:text-(length:--fs-lg)"
         style={
           {
-            "--fs-sm": `clamp(${project.titleSize.sm}px, ${project.titleSize.sm}px + ${((project.titleSize.lg - project.titleSize.sm) / 1050) * 100}vw - ${((project.titleSize.lg - project.titleSize.sm) / 1050) * 390}px, ${project.titleSize.lg}px)`,
+            // The 390 frame's size, growing to the 1440 one; below 390 it shrinks
+            // with the viewport so the title always stays on one line.
+            "--fs-sm": `min(${(project.titleSize.sm / 390) * 100}vw, clamp(${project.titleSize.sm}px, ${project.titleSize.sm}px + ${((project.titleSize.lg - project.titleSize.sm) / 1050) * 100}vw - ${((project.titleSize.lg - project.titleSize.sm) / 1050) * 390}px, ${project.titleSize.lg}px))`,
             "--fs-lg": px(project.titleSize.lg),
             "--gap": px(10),
           } as CSSProperties
@@ -394,13 +396,13 @@ function NextProject({ project }: { project: Project }) {
           {label}
         </p>
         <p
-          className="mt-2 flex items-center gap-[0.35em] text-4xl leading-[1.3] font-semibold tracking-[-0.015em] lg:mt-(--gap) lg:text-(length:--fs) lg:tracking-[-0.025em]"
+          className="mt-2 text-4xl leading-[1.3] font-semibold tracking-[-0.015em] lg:mt-(--gap) lg:text-(length:--fs) lg:tracking-[-0.025em]"
           style={{ "--gap": px(27), "--fs": px(64) } as CSSProperties}
         >
           {keepHyphens(next.nextTitle)}
           <span
             aria-hidden
-            className="transition-transform duration-500 ease-out-expo group-hover:translate-x-2"
+            className="ml-[0.35em] inline-block transition-transform duration-500 ease-out-expo group-hover:translate-x-2"
           >
             →
           </span>

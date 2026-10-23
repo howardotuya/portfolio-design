@@ -45,7 +45,7 @@ export function Hero() {
   const letters = [..."Howard"];
   return (
     <section id="top" aria-labelledby="hero-name" className="relative overflow-x-clip">
-      <div className="relative mx-auto grid max-w-[1440px] grid-cols-2 px-5 pt-[30px] lg:block lg:h-[calc(736*var(--px))] lg:p-0">
+      <div className="relative mx-auto grid max-w-[34rem] grid-cols-2 px-5 pt-[30px] lg:block lg:h-[calc(736*var(--px))] lg:max-w-[1440px] lg:p-0">
         <At x={357} y={119} className="col-start-1 row-start-1 justify-self-start">
           <Pill colour="mint" angle={5} shadow className={dropIn} style={drop(520)}>
             Designs <Pencil className="size-[1.05em]" />

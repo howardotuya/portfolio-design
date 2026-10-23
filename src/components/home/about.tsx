@@ -85,7 +85,7 @@ export function About() {
         <ul
           aria-label="What I do"
           className={cn(
-            "-mx-3 mt-[30px] flex w-[calc(100%+24px)] max-w-[25rem] flex-wrap justify-center gap-3 text-chip lg:absolute lg:top-(--y) lg:left-1/2 lg:mx-0 lg:mt-0 lg:w-auto lg:max-w-none lg:-translate-x-1/2 lg:flex-nowrap lg:gap-(--gap) lg:text-(length:--fs)",
+            "-mx-3 mt-[30px] flex w-[calc(100%+24px)] max-w-[21em] flex-wrap justify-center gap-3 text-chip lg:absolute lg:top-(--y) lg:left-1/2 lg:mx-0 lg:mt-0 lg:w-auto lg:max-w-none lg:-translate-x-1/2 lg:flex-nowrap lg:gap-(--gap) lg:text-(length:--fs)",
           )}
           style={pos("c", 530, { "--gap": px(20), "--fs": px(24) })}
         >

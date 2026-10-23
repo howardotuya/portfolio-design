@@ -162,7 +162,7 @@ export function SelectedWork() {
       <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between lg:pr-[calc(50*var(--px))]">
         <h2
           id="work-title"
-          className="-ml-[0.05em] max-w-[5em] font-pixel text-pixel leading-[0.9] uppercase lg:max-w-none lg:text-(length:--fs)"
+          className="-ml-[0.05em] font-pixel text-pixel leading-[0.9] uppercase lg:text-(length:--fs)"
           style={{ "--fs": px(150) } as CSSProperties}
         >
           Selected work
