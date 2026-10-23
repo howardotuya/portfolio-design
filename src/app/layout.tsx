@@ -38,7 +38,9 @@ const spaceMono = Space_Mono({
 });
 
 // No fallback faces of their own: a character missing from a cut must fall
-// through to Google's subsets, not to a local Arial.
+// through to Google's subsets, not to a local Arial. All three are preloaded:
+// they're small, every page's first view uses them, and the fallback mono is
+// wide enough to wrap the project tags onto a second row (a 0.13 layout shift).
 const interCore = localFont({
   src: "../fonts/inter-core.woff2",
   weight: "400 600",
@@ -51,7 +53,6 @@ const gochiCore = localFont({
   weight: "400",
   variable: "--font-gochi-core",
   display: "swap",
-  preload: false,
   adjustFontFallback: false,
 });
 const monoCore = localFont({
@@ -59,7 +60,6 @@ const monoCore = localFont({
   weight: "700",
   variable: "--font-mono-core",
   display: "swap",
-  preload: false,
   adjustFontFallback: false,
 });
 
