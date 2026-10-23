@@ -36,11 +36,13 @@ Local Lighthouse swings with machine load; check `uptime` and judge by the media
 
 ## Images
 
-Sources are in `images/` (slides at 2x from the deck files, web-site hero crops, and `images/me/`
-for the polaroid photos once they exist). They're pre-rendered:
+Sources are in `images/` (slides at 2x from the deck files, web-site hero crops, and the polaroid
+photos in `images/me/`, cropped and listed in `photos` in `src/content/site.ts`). They're
+pre-rendered:
 
 ```bash
-pnpm images   # AVIF + WebP width ladder into public/, manifest in src/lib/images.gen.ts
+pnpm images      # AVIF + WebP width ladder into public/, manifest in src/lib/images.gen.ts
+pnpm images me   # just one folder (the full run takes a while)
 pnpm og       # 1200×630 Open Graph cards for the project pages (public/og/)
 ```
 

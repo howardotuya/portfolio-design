@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
-import { site } from "@/content/site";
+import { photos, site } from "@/content/site";
 import { cn } from "@/lib/cn";
 import { Pencil } from "../icons";
 import { fs, Note, Pill, Polaroid, px } from "../paper";
@@ -161,14 +161,14 @@ export function Hero() {
 
         {/* Taped polaroids: desktop composition only; the 390 frame moves "me" into About. */}
         <Polaroid
-          caption="me, 2026"
+          photo={photos.me}
           size="sm"
           angle={6}
           className={cn("absolute! top-(--y) left-(--x) max-lg:hidden", dropIn)}
           style={{ "--x": px(98), "--y": px(244), animationDelay: "820ms" } as CSSProperties}
         />
         <Polaroid
-          caption="my desk"
+          photo={photos.desk}
           size="sm"
           angle={-5}
           className={cn("absolute! top-(--y) left-(--x) max-lg:hidden", dropIn)}

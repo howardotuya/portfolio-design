@@ -1,3 +1,5 @@
+import type { ImageName } from "@/lib/images.gen";
+
 export const site = {
   name: "Howard Otuya",
   url: "https://design.howardotuya.com",
@@ -30,6 +32,32 @@ export const socials: { colour: "yellow" | "pink" | "green"; label?: string; url
   { colour: "pink" },
   { colour: "green" },
 ];
+
+export type Photo = { caption: string; image?: ImageName; alt?: string };
+
+/** Howard's polaroids (images/me/); without an image a polaroid shows the "PHOTO" slot. */
+export const photos = {
+  me: {
+    caption: "me, 2026",
+    image: "me/me-2026",
+    alt: "Howard in a red football shirt, taking a mirror selfie at the gym",
+  },
+  desk: {
+    caption: "my desk",
+    image: "me/my-desk",
+    alt: "Howard at the desk outdoors, under a patterned metal canopy",
+  },
+  year: {
+    caption: "2025",
+    image: "me/2025",
+    alt: "Howard in a black T-shirt, giving a thumbs up",
+  },
+  workspace: {
+    caption: "workspace",
+    image: "me/workspace",
+    alt: "The rooftop workspace: green turf, a table and office chairs under a steel canopy",
+  },
+} satisfies Record<string, Photo>;
 
 export const about = {
   paragraph:

@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { Picture } from "@/components/picture";
+import type { Photo } from "@/content/site";
 import { cn } from "@/lib/cn";
 import type { ImageName } from "@/lib/images.gen";
 
@@ -185,37 +186,49 @@ const polaroidSize = {
 };
 
 /**
- * A taped polaroid. Until Howard sends the photos it shows the Figma
- * placeholder. Hover lifts it and turns it most of the way to straight.
+ * A taped polaroid: a photo (or, without one, the Figma "PHOTO" placeholder)
+ * and a handwritten caption. Hover lifts it and turns it most of the way to straight.
  */
 export function Polaroid({
-  caption,
+  photo,
   size,
   angle,
   className,
   style,
 }: {
-  caption: string;
+  photo: Photo;
   size: keyof typeof polaroidSize;
   angle: number;
   className?: string;
   style?: CSSProperties;
 }) {
   const s = polaroidSize[size];
+  const slot = { left: px(s.pad), top: px(s.pad), width: px(s.slotW), height: px(s.slotH) };
   return (
     <figure
       className={cn("relative lift tilt bg-white shadow-paper", className)}
       style={{ width: px(s.w), height: px(s.h), ...tilt(angle), ...style }}
     >
-      <PhotoSlot
-        className="absolute"
-        style={{ left: px(s.pad), top: px(s.pad), width: px(s.slotW), height: px(s.slotH) }}
-      />
+      {photo.image ? (
+        <span className="absolute overflow-hidden bg-line" style={slot}>
+          <Picture
+            name={photo.image}
+            alt={photo.alt ?? ""}
+            width={s.slotW}
+            height={s.slotH}
+            sizes={`${s.slotW}px`}
+            loading="lazy"
+            className="block size-full object-cover"
+          />
+        </span>
+      ) : (
+        <PhotoSlot className="absolute" style={slot} />
+      )}
       <figcaption
         className="absolute inset-x-0 text-center font-hand leading-none text-soft"
         style={{ top: px(s.pad * 2 + s.slotH + 4), fontSize: fs(18, 14) }}
       >
-        {caption}
+        {photo.caption}
       </figcaption>
       {/* Tape: blue across the top-left corner, beige off the top-right. */}
       <Tape colour="blue" w={80} h={26} angle={25 - angle} style={{ left: px(-3), top: px(5) }} />

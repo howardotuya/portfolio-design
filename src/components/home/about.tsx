@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { about } from "@/content/site";
+import { about, photos } from "@/content/site";
 import { cn } from "@/lib/cn";
 import { fs, Polaroid, px, TapeChip } from "../paper";
 
@@ -51,7 +51,7 @@ export function About() {
           about me!
         </p>
 
-        <Polaroid caption="me, 2026" size="sm" angle={4} className="mt-[29px] lg:hidden" />
+        <Polaroid photo={photos.me} size="sm" angle={4} className="mt-[29px] lg:hidden" />
 
         <h2
           className="mt-6 rounded-[4px] border-2 border-ink bg-white px-3 py-1.5 text-whatsup font-medium lg:absolute lg:top-(--y) lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:px-(--pad-x) lg:py-(--pad-y) lg:text-(length:--fs)"
@@ -68,14 +68,14 @@ export function About() {
         </p>
 
         <Polaroid
-          caption="2026"
+          photo={photos.year}
           size="lg"
           angle={4}
           className="absolute! top-(--y) left-(--x) max-lg:hidden"
           style={pos(130, 207)}
         />
         <Polaroid
-          caption="workspace"
+          photo={photos.workspace}
           size="lg"
           angle={-4}
           className="absolute! top-(--y) left-(--x) max-lg:hidden"
