@@ -13,7 +13,7 @@ export type WebProject = {
   /** The handwritten sticky note. */
   note: string;
   url: `https://${string}`;
-  /** 1440×810 crop of the site's hero (the Figma frame until the site is deployed). */
+  /** The live hero at a 1440×810 viewport, 2x (scripts/images.mjs renders it). */
   thumbnail: ImageName;
   /** "● building in code" shows only while building. */
   status: "building" | "live";
@@ -32,7 +32,7 @@ export const webProjects: WebProject[] = [
     note: "the road draws itself as you scroll",
     url: "https://ekofest.howardotuya.com",
     thumbnail: "web/ekofest",
-    status: "building",
+    status: "live",
   },
   {
     slug: "buka",
@@ -45,7 +45,7 @@ export const webProjects: WebProject[] = [
     note: "the menu follows you as you scroll",
     url: "https://buka.howardotuya.com",
     thumbnail: "web/buka",
-    status: "building",
+    status: "live",
   },
   {
     slug: "kobo",
@@ -58,7 +58,7 @@ export const webProjects: WebProject[] = [
     note: "watch the invoice get paid",
     url: "https://kobo.howardotuya.com",
     thumbnail: "web/kobo",
-    status: "building",
+    status: "live",
   },
 ];
 

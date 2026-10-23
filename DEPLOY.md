@@ -36,8 +36,9 @@ Local Lighthouse swings with machine load; check `uptime` and judge by the media
 
 - **Copy** lives in `src/content/` (`projects.ts`, `web.ts`, `site.ts`). Project pages are generated
   from `projects.ts`; the order of that list is also the "Next project" loop.
-- **When a web project goes live**, set its `status` to `"live"` in `web.ts`: the "building in
-  code" sticker disappears. Swap its thumbnail for a crop of the live site if you like.
+- **Web projects** are all `"live"` in `web.ts` (a `"building"` one shows a "building in code"
+  sticker). Their thumbnails are the live heroes captured at a 1440×810 viewport at 2x, with
+  reduced motion, saved as `images/web/<slug>.png`; run `pnpm images web` after replacing one.
 - **Social links**: give a dot in `site.ts` a `url` and `label` and it becomes a link.
 
 ## Images

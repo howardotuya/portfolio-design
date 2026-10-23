@@ -63,7 +63,7 @@ export const images = {
   "web/buka": {
     "width": 2880,
     "height": 1620,
-    "hash": "bf507b36",
+    "hash": "19559d1a",
     "widths": [
       48,
       96,
@@ -84,7 +84,7 @@ export const images = {
   "web/ekofest": {
     "width": 2880,
     "height": 1620,
-    "hash": "ed8bb029",
+    "hash": "e0720b91",
     "widths": [
       48,
       96,
@@ -105,7 +105,7 @@ export const images = {
   "web/kobo": {
     "width": 2880,
     "height": 1620,
-    "hash": "703a3f79",
+    "hash": "d9f77524",
     "widths": [
       48,
       96,
