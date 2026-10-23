@@ -300,7 +300,11 @@ function lightboxSlides(project: Project): LightboxSlide[] {
   return project.slides.map((caption, i) => {
     const name = slideImage(project, i);
     const { width, height } = images[name];
-    const common = { src: name, alt: "", width, height, sizes: "100vw" };
+    // The box the slide fits in: the viewport less the dialog's padding, bars
+    // and gaps. It's usually height-bound, so 100vw would over-fetch.
+    const ratio = (width / height).toFixed(4);
+    const sizes = `(width >= 64rem) min(100vw - 4rem, (100vh - 11.5rem) * ${ratio}), min(100vw - 2rem, (100vh - 8.4rem) * ${ratio})`;
+    const common = { src: name, alt: "", width, height, sizes };
     const webp = getImageProps(common).props;
     const avif = getImageProps({
       ...common,
@@ -311,6 +315,7 @@ function lightboxSlides(project: Project): LightboxSlide[] {
       alt: `${project.title}, slide ${i + 1}: ${caption}`,
       width,
       height,
+      sizes,
       src: webp.src,
       webp: webp.srcSet ?? "",
       avif: avif.srcSet ?? "",

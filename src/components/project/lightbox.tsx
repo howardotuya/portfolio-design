@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/cn";
 import { CloseIcon } from "../icons";
 
 export type LightboxSlide = {
@@ -11,7 +12,19 @@ export type LightboxSlide = {
   avif: string;
   webp: string;
   src: string;
+  sizes: string;
 };
+
+/**
+ * What to show while slide `index`'s full-size image loads: the grid tile's
+ * copy, which the browser already has, unless the full size has arrived too.
+ */
+function placeholder(index: number) {
+  const loaded = (img: HTMLImageElement | null) => Boolean(img?.complete && img.naturalWidth);
+  if (loaded(document.querySelector(`[data-ahead="${index}"]`))) return undefined;
+  const tile = document.querySelector<HTMLImageElement>(`#slides [data-slide="${index}"] img`);
+  return loaded(tile) ? tile!.currentSrc : undefined;
+}
 
 /**
  * Full-screen slide viewer. The slide grid is server-rendered; any element with
@@ -23,23 +36,49 @@ export function Lightbox({ slides, title }: { slides: LightboxSlide[]; title: st
   const close = useRef<HTMLButtonElement>(null);
   const opener = useRef<HTMLElement | null>(null);
   const swipe = useRef<number | null>(null);
+  const [opened, setOpened] = useState(false);
   const [index, setIndex] = useState(0);
+  // Full-size slides fetched ahead: a hovered or focused tile's, then, once the
+  // open slide is sharp, the rest of the deck one at a time, nearest first, so
+  // the next slide is already there when → is pressed.
+  const [ahead, setAhead] = useState<ReadonlySet<number>>(new Set());
   const count = slides.length;
 
-  const go = useCallback((step: number) => setIndex((i) => (i + step + count) % count), [count]);
+  const fetchAhead = (i: number) => setAhead((a) => (a.has(i) ? a : new Set(a).add(i)));
+  const fetchNearest = () => {
+    if (!opened) return;
+    for (let d = 1; d < count; d++) {
+      for (const i of [(index + d) % count, (index - d + count) % count]) {
+        if (!ahead.has(i)) return fetchAhead(i);
+      }
+    }
+  };
+  const go = (step: number) => setIndex((index + step + count) % count);
 
   useEffect(() => {
     const grid = document.getElementById("slides");
+    const tile = (e: Event) => (e.target as Element).closest<HTMLElement>("[data-slide]");
+    const onIntent = (e: Event) => {
+      const button = tile(e);
+      if (button) fetchAhead(Number(button.dataset.slide));
+    };
     const onClick = (e: MouseEvent) => {
-      const button = (e.target as Element).closest<HTMLElement>("[data-slide]");
+      const button = tile(e);
       if (!button) return;
       opener.current = button;
       setIndex(Number(button.dataset.slide));
+      setOpened(true);
       dialog.current?.showModal();
       close.current?.focus();
     };
+    grid?.addEventListener("pointerover", onIntent);
+    grid?.addEventListener("focusin", onIntent);
     grid?.addEventListener("click", onClick);
-    return () => grid?.removeEventListener("click", onClick);
+    return () => {
+      grid?.removeEventListener("pointerover", onIntent);
+      grid?.removeEventListener("focusin", onIntent);
+      grid?.removeEventListener("click", onClick);
+    };
   }, []);
 
   const slide = slides[index]!;
@@ -91,21 +130,8 @@ export function Lightbox({ slides, title }: { slides: LightboxSlide[]; title: st
             swipe.current = null;
           }}
         >
-          <div className="absolute inset-0 flex items-center justify-center">
-            <picture key={index} className="contents">
-              <source type="image/avif" srcSet={slide.avif} sizes="100vw" />
-              <img
-                src={slide.src}
-                srcSet={slide.webp}
-                sizes="100vw"
-                alt={slide.alt}
-                width={slide.width}
-                height={slide.height}
-                draggable={false}
-                loading="lazy"
-                className="h-auto max-h-full w-auto max-w-full object-contain motion-safe:animate-[fade-up_350ms_var(--ease-out-expo)_both]"
-              />
-            </picture>
+          <div className="[container-type:size] absolute inset-0 grid place-items-center">
+            {opened && <Slide key={index} slide={slide} index={index} onSharp={fetchNearest} />}
           </div>
         </div>
 
@@ -135,6 +161,79 @@ export function Lightbox({ slides, title }: { slides: LightboxSlide[]; title: st
           </button>
         </div>
       </div>
+
+      {/* Hidden images still load: this is the fetch-ahead queue. */}
+      <div hidden>
+        {[...ahead].map((i) => (
+          <picture key={i}>
+            <source type="image/avif" srcSet={slides[i]!.avif} sizes={slides[i]!.sizes} />
+            <img
+              src={slides[i]!.src}
+              srcSet={slides[i]!.webp}
+              sizes={slides[i]!.sizes}
+              alt=""
+              data-ahead={i}
+              onLoad={fetchNearest}
+              onError={fetchNearest}
+            />
+          </picture>
+        ))}
+      </div>
     </dialog>
+  );
+}
+
+/**
+ * One slide, fitted to the stage. If the full size isn't loaded yet, the grid
+ * tile's copy shows straight away and the full size replaces it once decoded.
+ */
+function Slide({
+  slide,
+  index,
+  onSharp,
+}: {
+  slide: LightboxSlide;
+  index: number;
+  onSharp: () => void;
+}) {
+  const [standIn] = useState(() => placeholder(index));
+  const [sharp, setSharp] = useState(!standIn);
+
+  return (
+    <div
+      className="relative"
+      style={{
+        width: `min(100cqw, 100cqh * ${slide.width / slide.height})`,
+        aspectRatio: `${slide.width} / ${slide.height}`,
+      }}
+    >
+      {standIn && !sharp && (
+        // eslint-disable-next-line @next/next/no-img-element -- the tile's own file, already loaded
+        <img src={standIn} alt="" draggable={false} className="absolute inset-0 size-full" />
+      )}
+      <picture>
+        <source type="image/avif" srcSet={slide.avif} sizes={slide.sizes} />
+        <img
+          src={slide.src}
+          srcSet={slide.webp}
+          sizes={slide.sizes}
+          alt={slide.alt}
+          width={slide.width}
+          height={slide.height}
+          fetchPriority="high"
+          draggable={false}
+          onLoad={(e) => {
+            e.currentTarget
+              .decode()
+              .catch(() => {})
+              .finally(() => {
+                setSharp(true);
+                onSharp();
+              });
+          }}
+          className={cn("absolute inset-0 size-full", !sharp && "opacity-0")}
+        />
+      </picture>
+    </div>
   );
 }
