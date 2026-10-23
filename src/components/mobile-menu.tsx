@@ -12,7 +12,7 @@ const button =
  * Full-screen menu for small screens (Figma 9:119). A native modal <dialog>
  * gives the focus trap, inert page and Esc-to-close; CSS locks the scroll.
  */
-export function MobileMenu({ active, onHome }: { active: NavId; onHome: boolean }) {
+export function MobileMenu({ active, onHome }: { active?: NavId; onHome: boolean }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const close = useRef<HTMLButtonElement>(null);

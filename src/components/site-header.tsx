@@ -8,7 +8,7 @@ import { navHref, SocialDots } from "./social-dots";
  * The white bar from the Figma "Nav". Plain <a> links on purpose: full page
  * loads are what cross-document View Transitions animate.
  */
-export function SiteHeader({ active, onHome }: { active: NavId; onHome: boolean }) {
+export function SiteHeader({ active, onHome }: { active?: NavId; onHome: boolean }) {
   return (
     <header className="sticky top-0 z-30 h-(--header-h) border-b border-line bg-white">
       <div className="flex h-full items-center px-5 lg:pr-[29px] lg:pl-[39px]">
