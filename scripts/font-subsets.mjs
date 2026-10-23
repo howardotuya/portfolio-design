@@ -11,11 +11,11 @@ const UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36";
 
 const cuts = [
-  { file: "familjen-core.woff2", family: "Familjen+Grotesk:wght@400..600" },
+  { file: "familjen-core.woff2", family: "Familjen+Grotesk:wght@400..700" },
   { file: "gochi-core.woff2", family: "Gochi+Hand" },
   { file: "mono-core.woff2", family: "Space+Mono:wght@700" },
   // The arrows, kept apart (unicode-range U+2190-2199) so every stack can use them.
-  { file: "sans-arrows.woff2", family: "Familjen+Grotesk:wght@400..600", text: "←↑→↓↖↗↘↙" },
+  { file: "sans-arrows.woff2", family: "Familjen+Grotesk:wght@400..700", text: "←↑→↓↖↗↘↙" },
   { file: "mono-arrows.woff2", family: "Space+Mono:wght@700", text: "←↑→↓↖↗↘↙" },
 ];
 

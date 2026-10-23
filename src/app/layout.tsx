@@ -44,7 +44,7 @@ const spaceMono = Space_Mono({
 // wide enough to wrap the project tags onto a second row (a 0.13 layout shift).
 const familjenCore = localFont({
   src: "../fonts/familjen-core.woff2",
-  weight: "400 600",
+  weight: "400 700",
   variable: "--font-familjen-core",
   display: "swap",
   adjustFontFallback: false,
