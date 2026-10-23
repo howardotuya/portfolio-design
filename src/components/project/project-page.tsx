@@ -281,7 +281,7 @@ function System({ project }: { project: Project }) {
             </li>
           ))}
         </ul>
-        <div className="flex flex-col gap-3 lg:h-full lg:justify-between lg:gap-4">
+        <div className="flex flex-col gap-3 lg:gap-[calc(18*var(--px))]">
           <TypeSample project={project} />
           <p
             className="font-mono text-[10px] leading-[1.3] font-bold tracking-[0.08em] text-soft uppercase lg:text-(length:--fs) lg:tracking-[0.1em]"
