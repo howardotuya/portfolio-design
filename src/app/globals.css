@@ -180,6 +180,16 @@
   margin-inline: auto;
 }
 
+/*
+ * Below-the-fold sections skip layout and paint until they near the viewport,
+ * which also keeps their lazy images out of the first load. `auto` remembers
+ * the last rendered height so the scrollbar doesn't jump.
+ */
+@utility defer-render {
+  content-visibility: auto;
+  contain-intrinsic-size: auto var(--defer-h, 1200px);
+}
+
 @utility surface-yellow {
   --color-focus: var(--color-ink);
 }

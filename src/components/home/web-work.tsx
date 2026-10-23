@@ -193,7 +193,7 @@ export function WebWork() {
     <section
       id="web"
       aria-labelledby="web-title"
-      className="container-page pt-[60px] lg:pt-[calc(90*var(--px))]"
+      className="container-page pt-[60px] defer-render [--defer-h:2000px] lg:pt-[calc(90*var(--px))]"
     >
       <p
         className="font-hand text-label-hand lg:text-(length:--fs)"

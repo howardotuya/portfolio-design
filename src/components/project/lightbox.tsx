@@ -56,7 +56,7 @@ export function Lightbox({ slides, title }: { slides: LightboxSlide[]; title: st
         else return;
         e.preventDefault();
       }}
-      className="fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none bg-ink/96 p-0 text-white opacity-0 transition-[opacity,display,overlay] transition-discrete duration-300 ease-out-expo backdrop:bg-transparent open:opacity-100 motion-reduce:transition-none starting:open:opacity-0"
+      className="fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none bg-ink p-0 text-white opacity-0 transition-[opacity,display,overlay] transition-discrete duration-300 ease-out-expo backdrop:bg-transparent open:opacity-100 motion-reduce:transition-none starting:open:opacity-0"
     >
       <div className="grid h-full grid-rows-[auto_1fr_auto] gap-3 p-4 lg:gap-5 lg:p-8">
         <div className="flex items-center justify-between font-mono text-xs font-bold tracking-[0.08em] uppercase lg:text-[13px]">
@@ -77,7 +77,7 @@ export function Lightbox({ slides, title }: { slides: LightboxSlide[]; title: st
         </div>
 
         <div
-          className="relative grid min-h-0 touch-pan-y place-items-center select-none"
+          className="relative min-h-0 touch-pan-y select-none"
           onPointerDown={(e) => {
             swipe.current = e.clientX;
           }}
@@ -91,7 +91,7 @@ export function Lightbox({ slides, title }: { slides: LightboxSlide[]; title: st
             swipe.current = null;
           }}
         >
-          <picture key={index} className="contents">
+          <picture key={index}>
             <source type="image/avif" srcSet={slide.avif} sizes="100vw" />
             <img
               src={slide.src}
@@ -101,7 +101,7 @@ export function Lightbox({ slides, title }: { slides: LightboxSlide[]; title: st
               width={slide.width}
               height={slide.height}
               draggable={false}
-              className="max-h-full w-auto max-w-full object-contain shadow-lifted motion-safe:animate-[fade-up_350ms_var(--ease-out-expo)_both]"
+              className="absolute inset-0 size-full object-contain drop-shadow-[0_16px_36px_rgb(0_0_0/0.35)] motion-safe:animate-[fade-up_350ms_var(--ease-out-expo)_both]"
             />
           </picture>
         </div>

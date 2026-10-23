@@ -149,7 +149,7 @@ export function SelectedWork() {
     <section
       id="work"
       aria-labelledby="work-title"
-      className="container-page pt-16 lg:pt-[calc(84*var(--px))]"
+      className="container-page pt-16 defer-render [--defer-h:2600px] lg:pt-[calc(84*var(--px))]"
     >
       <p
         className="font-hand text-label-hand lg:text-(length:--fs)"
