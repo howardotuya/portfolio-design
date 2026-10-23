@@ -12,5 +12,10 @@ export default defineConfig([
     files: ["**/*.{jsx,tsx}"],
     rules: jsxA11y.flatConfigs.recommended.rules,
   },
+  {
+    // Internal links are plain <a> on purpose: full page loads are what
+    // cross-document View Transitions animate (card cover → project hero).
+    rules: { "@next/next/no-html-link-for-pages": "off" },
+  },
   globalIgnores([".next/**", "out/**", "reports/**", "next-env.d.ts"]),
 ]);

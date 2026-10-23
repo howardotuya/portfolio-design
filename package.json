@@ -17,7 +17,9 @@
     "preview": "node scripts/serve.mjs",
     "measure": "node scripts/measure-js.mjs",
     "shoot": "node scripts/shoot.mjs",
-    "lighthouse": "node scripts/lighthouse.mjs"
+    "lighthouse": "node scripts/lighthouse.mjs",
+    "og": "node scripts/og.mjs",
+    "glyphs": "python3 scripts/glyph-patches.py"
   },
   "dependencies": {
     "next": "16.4.2",

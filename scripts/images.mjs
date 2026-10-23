@@ -2,7 +2,7 @@
 // fixed width ladder, and write a typed manifest the <Picture> component reads.
 // Static export has no image optimizer, so this replaces it.
 // images/work/yolura/01.png → public/work/yolura/01-<width>.{avif,webp}, named
-// "work/yolura/01" in the manifest. images/og/* become 1200×630 JPEGs instead.
+// "work/yolura/01" in the manifest.
 // Usage: node scripts/images.mjs
 import { mkdirSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
@@ -43,18 +43,6 @@ for (const file of walk(srcDir)) {
   const outDir = path.join(publicDir, dir);
   mkdirSync(outDir, { recursive: true });
   const input = sharp(file);
-
-  // Open Graph cards: one 1200×630 JPEG, cropped from the centre.
-  if (dir.split(path.sep)[0] === "og") {
-    const jpg = await input
-      .resize(1200, 630, { fit: "cover" })
-      .jpeg({ quality: 82, mozjpeg: true })
-      .toBuffer();
-    writeFileSync(path.join(outDir, `${base}.jpg`), jpg);
-    bytes += jpg.length;
-    console.log(`${name.padEnd(28)} → 1200×630 jpg`);
-    continue;
-  }
 
   const { width, height } = await input.metadata();
   const widths = LADDER.filter((w) => w < width);

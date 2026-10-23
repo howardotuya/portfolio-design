@@ -191,10 +191,7 @@ export function SelectedWork() {
           <div key={project.slug} className="contents">
             {i === 0 && <span id="decks" className="block" />}
             {project.kind === "document" && projects[i - 1]?.kind === "deck" && (
-              <span
-                id="documents"
-                className="block lg:-mt-[calc(102*var(--px))] lg:mb-[calc(102*var(--px))]"
-              />
+              <span id="documents" className="relative block lg:-top-[calc(102*var(--px))]" />
             )}
             <FolderCard project={project} index={i} />
           </div>

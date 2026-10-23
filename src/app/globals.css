@@ -16,6 +16,11 @@
   --color-beige: #eadbb0;
   --color-white: #ffffff;
   --color-dark: #1b1b1b;
+  /*
+   * Text-only shade: the Figma orange is 3.0:1 on paper, too light for the
+   * small "01–04" numbers. Same rule as Kòbò and Bùkà: darken text, not fills.
+   */
+  --color-orange-ink: #b54a20;
   /* Not a Figma variable: the red of the ♥ emoji in the Figma render of "♥ CONTACT". */
   --color-heart: #e0245e;
 }
@@ -125,6 +130,24 @@
 
   @media (width < 64rem) {
     --header-h: 56px;
+  }
+}
+
+/* Cross-document View Transitions: a project card's cover morphs into the project hero. */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-group(*) {
+  animation-duration: 450ms;
+  animation-timing-function: var(--ease-out-expo);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }
 

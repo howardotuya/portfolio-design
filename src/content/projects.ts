@@ -10,6 +10,8 @@ export type Project = {
   year: string;
   /** The big pixel title on the project page. */
   title: string;
+  /** Its size in the 390 and 1440 frames: each is set to fit on one line. */
+  titleSize: { sm: number; lg: number };
   /** The title on the home folder card. */
   cardTitle: string;
   /** The title on the previous project's "Next project" card. */
@@ -41,6 +43,7 @@ export const projects: Project[] = [
     number: "Deck 01",
     year: "2026",
     title: "Yolura",
+    titleSize: { sm: 120, lg: 190 },
     cardTitle: "Yolura",
     nextTitle: "Yolura",
     cardMeta: "Pitch deck · 6 slides",
@@ -78,6 +81,7 @@ export const projects: Project[] = [
     number: "Deck 02",
     year: "2026",
     title: "Èkó Sound",
+    titleSize: { sm: 96, lg: 190 },
     cardTitle: "Èkó Sound",
     nextTitle: "Èkó Sound",
     cardMeta: "Year in review · 6 slides",
@@ -116,6 +120,7 @@ export const projects: Project[] = [
     number: "Deck 03",
     year: "2026",
     title: "Lagoon Line",
+    titleSize: { sm: 84, lg: 172 },
     cardTitle: "Lagoon Line",
     nextTitle: "Lagoon Line",
     cardMeta: "Seed deck · 5 slides",
@@ -153,6 +158,7 @@ export const projects: Project[] = [
     number: "Doc 01",
     year: "2026",
     title: "Field Guide",
+    titleSize: { sm: 92, lg: 190 },
     cardTitle: "Street Food Field Guide",
     nextTitle: "Street Food Guide",
     cardMeta: "Editorial · 6 pages",
@@ -203,6 +209,7 @@ export const projects: Project[] = [
     number: "Doc 02",
     year: "2026",
     title: "Àgbẹ̀ Report",
+    titleSize: { sm: 76, lg: 160 },
     cardTitle: "Àgbẹ̀ Co-op Report",
     nextTitle: "Àgbẹ̀ Co-op Report",
     cardMeta: "Annual report · 6 pages",
