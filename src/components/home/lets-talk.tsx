@@ -34,7 +34,7 @@ export function LetsTalk() {
     <section
       id="contact"
       aria-labelledby="talk-title"
-      className="talk container-page flex flex-col items-center pt-[50px] text-center lg:pt-[calc(240*var(--px))]"
+      className="talk container-page flex flex-col items-center pt-[50px] text-center lg:pt-[calc(168*var(--px))]"
     >
       <Smiley className="size-24 lg:size-(--s)" style={{ "--s": px(140) } as CSSProperties} />
       <h2

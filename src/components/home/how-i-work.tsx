@@ -8,7 +8,7 @@ export function HowIWork() {
   return (
     <section
       aria-labelledby="how-title"
-      className="relative container-page pt-[76px] lg:pt-[calc(184*var(--px))]"
+      className="relative container-page pt-[76px] lg:pt-[calc(255*var(--px))]"
     >
       <p
         className="font-hand text-label-hand lg:text-(length:--fs)"
@@ -31,7 +31,7 @@ export function HowIWork() {
       </p>
       <div
         className="mt-5 lg:absolute lg:top-(--y) lg:left-(--x) lg:mt-0 lg:-translate-1/2"
-        style={{ "--x": px(1038), "--y": px(184 + 70) } as CSSProperties}
+        style={{ "--x": px(1038), "--y": px(255 + 70) } as CSSProperties}
       >
         <Note colour="beige" angle={2} angleLg={-4} className="wiggle-in">
           {howIWork.note} <Sparkle />

@@ -45,7 +45,7 @@ export function Hero() {
   const letters = [..."Howard"];
   return (
     <section id="top" aria-labelledby="hero-name" className="relative overflow-x-clip">
-      <div className="relative mx-auto grid max-w-[34rem] grid-cols-2 px-5 pt-[30px] lg:block lg:h-[calc(736*var(--px))] lg:max-w-[1440px] lg:p-0">
+      <div className="relative mx-auto grid max-w-[34rem] grid-cols-2 px-5 pt-[34px] pb-[60px] lg:block lg:h-[calc(736*var(--px))] lg:max-w-[1440px] lg:p-0">
         <At x={357} y={119} className="col-start-1 row-start-1 justify-self-start">
           <Pill colour="mint" angle={5} shadow className={dropIn} style={drop(520)}>
             Designs <Pencil className="size-[1.05em]" />
@@ -58,7 +58,7 @@ export function Hero() {
         </At>
 
         <p
-          className="col-span-2 row-start-2 mt-1 text-center font-hand text-lg leading-[1.5] lg:absolute lg:top-(--y) lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:text-(length:--fs)"
+          className="col-span-2 row-start-2 mt-[9px] text-center font-hand text-lg leading-[1.5] lg:absolute lg:top-(--y) lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:text-(length:--fs)"
           style={{ "--y": px(76), "--fs": fs(24, 18) } as CSSProperties}
         >
           my name is
@@ -90,19 +90,19 @@ export function Hero() {
           />
         </div>
 
-        <At x={397} y={347} className="col-start-1 row-start-4 mt-5 justify-self-start">
+        <At x={397} y={347} className="col-start-1 row-start-4 mt-[27px] justify-self-start">
           <Note colour="yellow" angle={5} className={dropIn} style={drop(680)}>
             Design engineer
           </Note>
         </At>
-        <At x={1074} y={335} className="col-start-2 row-start-4 mt-[11px] justify-self-end">
+        <At x={1074} y={335} className="col-start-2 row-start-4 mt-[18px] justify-self-end">
           <Note colour="mint" angle={-4} className={dropIn} style={drop(760)}>
             Lagos, NG
           </Note>
         </At>
 
         <p
-          className="col-span-2 row-start-5 mt-4 flex items-center justify-center gap-2 font-mono text-[11px] leading-[1.3] font-bold tracking-[0.08em] uppercase lg:absolute lg:top-(--y) lg:left-(--x) lg:mt-0 lg:-translate-y-1/2 lg:gap-(--gap) lg:text-(length:--fs) lg:tracking-[0.1em]"
+          className="col-span-2 row-start-5 mt-[14px] flex items-center justify-center gap-2 font-mono text-[11px] leading-[1.3] font-bold tracking-[0.08em] uppercase lg:absolute lg:top-(--y) lg:left-(--x) lg:mt-0 lg:-translate-y-1/2 lg:gap-(--gap) lg:text-(length:--fs) lg:tracking-[0.1em]"
           style={
             { "--x": px(540), "--y": px(340), "--gap": px(10), "--fs": fs(13, 11) } as CSSProperties
           }

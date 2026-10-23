@@ -216,7 +216,7 @@ export function WebWork() {
       </p>
       <div
         className="mt-[50px] grid gap-14 lg:mt-(--gap) lg:gap-(--row)"
-        style={{ "--gap": px(97), "--row": px(186) } as CSSProperties}
+        style={{ "--gap": px(97), "--row": px(204) } as CSSProperties}
       >
         {webProjects.map((p, i) => (
           <WebRow key={p.slug} project={p} index={i} />

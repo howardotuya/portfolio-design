@@ -55,11 +55,11 @@ function FolderCard({ project, index }: { project: Project; index: number }) {
 
       <div
         className={cn(
-          "flex flex-col p-4 pb-7 lg:grid lg:h-[calc(520*var(--px))] lg:grid-cols-[1fr_calc(560*var(--px))] lg:items-start lg:gap-[calc(70*var(--px))] lg:pt-[calc(59*var(--px))] lg:pr-[calc(60*var(--px))] lg:pl-[calc(50*var(--px))]",
+          "flex flex-col p-4 pt-5 pb-[26px] lg:grid lg:h-[calc(520*var(--px))] lg:grid-cols-[1fr_calc(560*var(--px))] lg:items-start lg:gap-[calc(70*var(--px))] lg:pt-[calc(59*var(--px))] lg:pr-[calc(60*var(--px))] lg:pl-[calc(50*var(--px))]",
           cardBg[project.colour],
         )}
       >
-        <div className="order-2 mt-[22px] flex flex-col lg:order-none lg:mt-0 lg:min-h-[calc(297*var(--px))]">
+        <div className="order-2 mt-6 flex flex-col lg:order-none lg:mt-0 lg:min-h-[calc(297*var(--px))]">
           <p
             className="flex items-center gap-[calc(10*var(--px))] font-mono text-[11px] leading-[1.3] font-bold tracking-[0.08em] uppercase lg:text-(length:--fs) lg:tracking-[0.1em]"
             style={{ "--fs": fs(13, 11) } as CSSProperties}
@@ -87,7 +87,7 @@ function FolderCard({ project, index }: { project: Project; index: number }) {
           </p>
           <a
             href={href}
-            className="mt-[18px] w-fit font-mono text-xs leading-[1.3] font-bold tracking-[0.08em] uppercase after:absolute after:inset-0 after:z-10 lg:mt-auto lg:text-(length:--fs) lg:tracking-[0.1em]"
+            className="mt-5 w-fit font-mono text-xs leading-[1.3] font-bold tracking-[0.08em] uppercase after:absolute after:inset-0 after:z-10 lg:mt-auto lg:text-(length:--fs) lg:tracking-[0.1em]"
             style={{ "--fs": fs(14, 12) } as CSSProperties}
           >
             <span className="flex items-center gap-[0.5em]">
@@ -102,7 +102,7 @@ function FolderCard({ project, index }: { project: Project; index: number }) {
             <span
               aria-hidden
               className={cn(
-                "mt-1.5 block h-[1.5px] w-full origin-left transition-transform duration-500 ease-out-expo group-hover:scale-x-110 lg:mt-[calc(6*var(--px))] lg:h-[2px]",
+                "mt-1 block h-[1.5px] w-full origin-left transition-transform duration-500 ease-out-expo group-hover:scale-x-110 lg:mt-[calc(6*var(--px))] lg:h-[2px]",
                 light ? "bg-white" : "bg-ink",
               )}
             />
@@ -148,11 +148,7 @@ function FolderCard({ project, index }: { project: Project; index: number }) {
 
 export function SelectedWork() {
   return (
-    <section
-      id="work"
-      aria-labelledby="work-title"
-      className="container-page pt-16 lg:pt-[calc(84*var(--px))]"
-    >
+    <section id="work" aria-labelledby="work-title" className="container-page pt-16 lg:pt-0">
       <p
         className="font-hand text-label-hand lg:text-(length:--fs)"
         style={{ "--fs": fs(24, 18) } as CSSProperties}
@@ -162,7 +158,7 @@ export function SelectedWork() {
       <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between lg:pr-[calc(50*var(--px))]">
         <h2
           id="work-title"
-          className="-ml-[0.05em] font-pixel text-pixel leading-[0.9] uppercase lg:text-(length:--fs)"
+          className="-ml-[0.05em] font-pixel text-pixel leading-[0.9] uppercase lg:-mt-[calc(6*var(--px))] lg:text-(length:--fs)"
           style={{ "--fs": px(150) } as CSSProperties}
         >
           Selected work
