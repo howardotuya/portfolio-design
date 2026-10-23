@@ -1,0 +1,44 @@
+{
+  "name": "design",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=22.19"
+  },
+  "scripts": {
+    "dev": "next dev --port 3004",
+    "build": "next build",
+    "lint": "eslint .",
+    "typecheck": "next typegen && tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "images": "node scripts/images.mjs",
+    "preview": "node scripts/serve.mjs",
+    "measure": "node scripts/measure-js.mjs",
+    "shoot": "node scripts/shoot.mjs",
+    "lighthouse": "node scripts/lighthouse.mjs"
+  },
+  "dependencies": {
+    "next": "16.4.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "^22",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "chrome-launcher": "1.2.2",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.4.2",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "lighthouse": "13.5.0",
+    "playwright": "1.64.1",
+    "prettier": "3.9.10",
+    "prettier-plugin-tailwindcss": "0.8.1",
+    "sharp": "0.35.5",
+    "tailwindcss": "4.3.3",
+    "typescript": "6.0.3"
+  }
+}

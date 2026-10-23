@@ -1,0 +1,19 @@
+node_modules/
+
+# Next.js
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Vercel
+.vercel/
+
+# Figma references, screenshots and Lighthouse reports
+reports/
+
+# OS / editor
+.DS_Store
+*.log
+.env*.local
+
