@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
 """
-Glyph patches for the two display fonts that can't set Yoruba.
+Glyph patches for the fonts that can't set Yoruba.
 
 Jersey 10 (pixel headings) and Gochi Hand (handwriting) have no Ẹ ẹ Ọ ọ Ṣ ṣ or
-₦, and Gochi Hand has no combining accents either. This builds a tiny font per
+₦, and Gochi Hand has no combining accents either. Familjen Grotesk (body) has
+everything but Ṣ ṣ. This builds a tiny font per
 family from that family's own glyphs: the dot-below letters, ₦, the combining
 grave / acute / dot below, and tone-marked ẹ̀ ẹ́ ọ̀ ọ́ (upper and lower case) as
 ccmp ligatures, since those have no precomposed code point. layout.tsx loads
 each patch first in its font stack with a unicode-range, so it only downloads
 on pages that use one of these characters.
 
-Usage:   python3 scripts/glyph-patches.py <Jersey10-Regular.ttf> <GochiHand-Regular.ttf>
-Sources: github.com/google/fonts, ofl/jersey10 and ofl/gochihand (both OFL).
+Usage:   python3 scripts/glyph-patches.py <Jersey10-Regular.ttf> <GochiHand-Regular.ttf> \
+           <FamiljenGrotesk[wght].ttf>
+Sources: github.com/google/fonts, ofl/jersey10, ofl/gochihand, ofl/familjengrotesk (all OFL).
 Needs:   pip install fonttools brotli
 """
 
@@ -26,6 +28,8 @@ from fontTools.pens.recordingPen import DecomposingRecordingPen
 from fontTools.pens.transformPen import TransformPen
 from fontTools.pens.ttGlyphPen import TTGlyphPen
 from fontTools.ttLib import TTFont
+from fontTools.ttLib.tables._g_l_y_f import Glyph, GlyphComponent
+from fontTools.varLib import instancer
 
 OUT = Path(__file__).resolve().parent.parent / "src" / "fonts"
 
@@ -201,8 +205,55 @@ def gochi(path):
     p.save(OUT / "hand-patch.woff2", "Hand Patch")
 
 
+def familjen(path):
+    """Ṣ ṣ for Familjen Grotesk, built the way the font builds its own Ẹ and Ọ:
+    the letter plus its dotbelowcomb, centred. One static file per weight used
+    (Regular and SemiBold; Medium text picks the nearer one)."""
+    for weight, name in ((400, "Regular"), (600, "SemiBold")):
+        font = instancer.instantiateVariableFont(TTFont(path), {"wght": weight})
+        glyf, hmtx, cmap = font["glyf"], font["hmtx"], font.getBestCmap()
+        dot = cmap[0x0323]
+        dx0, _, dx1, _ = (glyf[dot].xMin, 0, glyf[dot].xMax, 0)
+        for base, cp in (("S", 0x1E62), ("s", 0x1E63)):
+            b = glyf[cmap[ord(base)]]
+            glyph = Glyph()
+            glyph.numberOfContours = -1
+            glyph.components = []
+            for gname, x in ((cmap[ord(base)], 0), (dot, round((b.xMin + b.xMax - dx0 - dx1) / 2))):
+                comp = GlyphComponent()
+                comp.glyphName, comp.x, comp.y, comp.flags = gname, x, 0, 0
+                glyph.components.append(comp)
+            new = f"uni{cp:04X}"
+            glyf[new] = glyph
+            glyph.recalcBounds(glyf)
+            hmtx[new] = hmtx[cmap[ord(base)]]
+            for table in font["cmap"].tables:
+                if table.isUnicode():
+                    table.cmap[cp] = new
+        font.setGlyphOrder(glyf.glyphOrder)
+        names = font["name"]
+        for nid in (1, 3, 4, 6, 16, 17, 21, 22, 25):
+            names.removeNames(nameID=nid)
+        for nid, value in ((1, "Sans Patch"), (2, name), (3, f"SansPatch-{name}"),
+                           (4, f"Sans Patch {name}"), (6, f"SansPatch-{name}")):
+            names.setName(value, nid, 3, 1, 0x409)
+        options = subset.Options()
+        options.flavor = "woff2"
+        options.layout_features = []
+        options.hinting = False
+        options.name_IDs = [0, 1, 2, 3, 4, 5, 6, 13, 14]
+        subsetter = subset.Subsetter(options)
+        subsetter.populate(unicodes=[0x1E62, 0x1E63])
+        subsetter.subset(font)
+        font.flavor = "woff2"
+        out = OUT / f"sans-patch-{weight}.woff2"
+        font.save(out)
+        print(f"{out.name}: {len(font.getGlyphOrder())} glyphs, {out.stat().st_size} bytes")
+
+
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 4:
         sys.exit(__doc__)
     jersey(sys.argv[1])
     gochi(sys.argv[2])
+    familjen(sys.argv[3])

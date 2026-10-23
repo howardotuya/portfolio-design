@@ -1,4 +1,4 @@
-// Cut Inter, Gochi Hand and Space Mono down to the characters the site uses
+// Cut Familjen Grotesk, Gochi Hand and Space Mono down to the characters the site uses
 // (Google Fonts' text= API), so the first view downloads ~30 KB less. Google's
 // full subsets stay behind them in the font stacks: a character added later
 // that isn't in a cut falls through to those and loads on demand.
@@ -11,9 +11,12 @@ const UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36";
 
 const cuts = [
-  { file: "inter-core.woff2", family: "Inter:wght@400..600" },
+  { file: "familjen-core.woff2", family: "Familjen+Grotesk:wght@400..600" },
   { file: "gochi-core.woff2", family: "Gochi+Hand" },
   { file: "mono-core.woff2", family: "Space+Mono:wght@700" },
+  // The arrows, kept apart (unicode-range U+2190-2199) so every stack can use them.
+  { file: "sans-arrows.woff2", family: "Familjen+Grotesk:wght@400..600", text: "←↑→↓↖↗↘↙" },
+  { file: "mono-arrows.woff2", family: "Space+Mono:wght@700", text: "←↑→↓↖↗↘↙" },
 ];
 
 function pages(dir) {
@@ -46,9 +49,9 @@ const text = [...chars]
   .join("");
 console.log(`${chars.size} characters: ${text}`);
 
-for (const { file, family } of cuts) {
+for (const { file, family, text: only } of cuts) {
   const css = await fetch(
-    `https://fonts.googleapis.com/css2?family=${family}&text=${encodeURIComponent(text)}`,
+    `https://fonts.googleapis.com/css2?family=${family}&text=${encodeURIComponent(only ?? text)}`,
     { headers: { "User-Agent": UA } },
   ).then((r) => r.text());
   const url = css.match(/url\((https:[^)]+)\)/)?.[1];

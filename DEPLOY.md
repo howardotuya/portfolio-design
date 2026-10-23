@@ -49,12 +49,14 @@ from the built hero at 1440 wide.
 
 ## Fonts
 
-- `pnpm fonts` re-cuts Inter, Gochi Hand and Space Mono to the characters the built site uses.
+- `pnpm fonts` re-cuts Familjen Grotesk, Gochi Hand and Space Mono to the characters the built site
+  uses, and cuts the arrow subsets.
   Run it after a content change (`pnpm build && pnpm fonts && pnpm build`). Skipping it is safe:
   a missing character falls through to Google's full subsets.
 - `src/fonts/pixel-patch.woff2` and `hand-patch.woff2` add Ẹ Ọ Ṣ ₦ and the tone-marked vowels to
-  Jersey 10 and Gochi Hand, drawn from their own glyphs. Rebuild with
-  `python3 scripts/glyph-patches.py <Jersey10-Regular.ttf> <GochiHand-Regular.ttf>` (needs
-  `pip install fonttools brotli`; sources from github.com/google/fonts).
+  Jersey 10 and Gochi Hand, and `sans-patch-*.woff2` adds Ṣ ṣ to Familjen Grotesk, all drawn from
+  each font's own glyphs. Rebuild with
+  `python3 scripts/glyph-patches.py <Jersey10-Regular.ttf> <GochiHand-Regular.ttf> <FamiljenGrotesk[wght].ttf>`
+  (needs `pip install fonttools brotli`; sources from github.com/google/fonts).
 - Project type samples are SVG outlines in `src/type-samples/`, exported from Figma, so those
   fonts are never loaded.

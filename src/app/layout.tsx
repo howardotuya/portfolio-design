@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Gochi_Hand, Inter, Jersey_10, Space_Mono } from "next/font/google";
+import { Familjen_Grotesk, Gochi_Hand, Jersey_10, Space_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import type { ReactNode } from "react";
 import { RevealScript } from "@/components/reveal-script";
@@ -15,9 +15,10 @@ const jersey = Jersey_10({
   variable: "--font-jersey",
   display: "swap",
 });
-const inter = Inter({
+// Body type: Familjen Grotesk (Howard moved the file off Inter on 2026-10-23).
+const familjen = Familjen_Grotesk({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-familjen",
   display: "swap",
   preload: false,
 });
@@ -41,10 +42,10 @@ const spaceMono = Space_Mono({
 // through to Google's subsets, not to a local Arial. All three are preloaded:
 // they're small, every page's first view uses them, and the fallback mono is
 // wide enough to wrap the project tags onto a second row (a 0.13 layout shift).
-const interCore = localFont({
-  src: "../fonts/inter-core.woff2",
+const familjenCore = localFont({
+  src: "../fonts/familjen-core.woff2",
   weight: "400 600",
-  variable: "--font-inter-core",
+  variable: "--font-familjen-core",
   display: "swap",
   adjustFontFallback: false,
 });
@@ -64,8 +65,8 @@ const monoCore = localFont({
 });
 
 // Ẹ ẹ Ọ ọ Ṣ ṣ ₦, the combining grave / acute / dot below, and ẹ̀ ẹ́ ọ̀ ọ́ drawn
-// from Jersey 10 and Gochi Hand's own glyphs (scripts/glyph-patches.py).
-// (next/font needs literal options, hence the repetition.)
+// from Jersey 10 and Gochi Hand's own glyphs, and Ṣ ṣ for Familjen Grotesk
+// (scripts/glyph-patches.py). (next/font needs literal options, hence the repetition.)
 const pixelPatch = localFont({
   src: "../fonts/pixel-patch.woff2",
   variable: "--font-pixel-patch",
@@ -92,7 +93,19 @@ const handPatch = localFont({
     },
   ],
 });
-// Arrows cut from Space Mono Bold and Inter: Google's latin subsets only carry ↑ ↓.
+const sansPatch = localFont({
+  src: [
+    { path: "../fonts/sans-patch-400.woff2", weight: "400" },
+    { path: "../fonts/sans-patch-600.woff2", weight: "600" },
+  ],
+  variable: "--font-sans-patch",
+  display: "swap",
+  preload: false,
+  adjustFontFallback: false,
+  declarations: [{ prop: "unicode-range", value: "U+1E62-1E63" }],
+});
+// Arrows cut from Space Mono Bold and Familjen Grotesk: Google's latin subsets
+// only carry ↑ ↓.
 const monoArrows = localFont({
   src: "../fonts/mono-arrows.woff2",
   weight: "700",
@@ -127,14 +140,15 @@ export const viewport: Viewport = {
 
 const fonts = [
   jersey,
-  inter,
+  familjen,
   gochi,
   spaceMono,
-  interCore,
+  familjenCore,
   gochiCore,
   monoCore,
   pixelPatch,
   handPatch,
+  sansPatch,
   monoArrows,
   sansArrows,
 ];

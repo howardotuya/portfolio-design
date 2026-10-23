@@ -28,8 +28,9 @@
 /*
  * Type. Each glyph patch comes first in its stack with a unicode-range, so it
  * only loads where a page uses one of its characters: Jersey 10 and Gochi Hand
- * have no Ẹ Ọ Ṣ ₦ (scripts/glyph-patches.py builds them from each font's own
- * shapes), and Google's Space Mono / Inter subsets leave out the arrows. The
+ * have no Ẹ Ọ Ṣ ₦ and Familjen Grotesk has no Ṣ (scripts/glyph-patches.py builds
+ * them from each font's own shapes), and Google's Space Mono / Familjen subsets
+ * leave out the arrows. The
  * "-core" faces are the same fonts cut to the site's characters.
  */
 @theme inline {
@@ -41,8 +42,8 @@
     var(--font-mono-arrows), var(--font-mono-core), var(--font-space-mono), ui-monospace,
     SFMono-Regular, monospace;
   --font-sans:
-    var(--font-sans-arrows), var(--font-inter-core), var(--font-inter), ui-sans-serif, system-ui,
-    sans-serif;
+    var(--font-sans-arrows), var(--font-sans-patch), var(--font-familjen-core),
+    var(--font-familjen), ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Fluid sizes interpolate linearly from the 390 frame to the 1440 frame. */
