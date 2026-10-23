@@ -1,0 +1,320 @@
+@import "tailwindcss";
+@import "../styles/preset.css";
+
+/* "Portfolio / Colour" variables from Figma (file As1xUlTojFsmjxuF7BgUDu). */
+@theme {
+  --color-paper: #f4f3ef;
+  --color-line: #e4e2dc;
+  --color-ink: #161616;
+  --color-soft: #5e5e5e;
+  --color-yellow: #f2c744;
+  --color-mint: #bfe3cf;
+  --color-green: #1fa971;
+  --color-pink: #f0468f;
+  --color-blue: #2f55d4;
+  --color-orange: #e5683c;
+  --color-beige: #eadbb0;
+  --color-white: #ffffff;
+  --color-dark: #1b1b1b;
+  /* Not a Figma variable: the red of the ♥ emoji in the Figma render of "♥ CONTACT". */
+  --color-heart: #e0245e;
+}
+
+/*
+ * Type. Each glyph patch comes first in its stack with a unicode-range, so it
+ * only loads where a page uses one of its characters: Jersey 10 and Gochi Hand
+ * have no Ẹ Ọ Ṣ ₦ (scripts/glyph-patches.py builds them from each font's own
+ * shapes), and Google's Space Mono / Inter subsets leave out the arrows.
+ */
+@theme inline {
+  --font-pixel: var(--font-pixel-patch), var(--font-jersey), ui-monospace, monospace;
+  --font-hand: var(--font-hand-patch), var(--font-gochi), var(--font-mono-arrows), cursive;
+  --font-mono:
+    var(--font-mono-arrows), var(--font-space-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-sans: var(--font-sans-arrows), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Fluid sizes interpolate linearly from the 390 frame to the 1440 frame. */
+@theme {
+  --text-name: clamp(7.375rem, 5.704rem + 6.857vw, 11.875rem);
+  --text-name--line-height: 0.9;
+  --text-pixel: clamp(5.25rem, 3.718rem + 6.286vw, 9.375rem);
+  --text-pixel--line-height: 0.9;
+  --text-talk: clamp(6rem, 4.746rem + 5.143vw, 9.375rem);
+  --text-talk--line-height: 0.9;
+
+  --text-label-hand: clamp(1.125rem, 0.986rem + 0.571vw, 1.5rem);
+  --text-label-hand--line-height: 1.5;
+  --text-note: clamp(1.125rem, 1.032rem + 0.381vw, 1.375rem);
+  --text-note--line-height: 1.2;
+  --text-caption: clamp(0.938rem, 0.868rem + 0.286vw, 1.125rem);
+  --text-caption--line-height: 1.2;
+  --text-about: clamp(1.375rem, 1.143rem + 0.952vw, 2rem);
+  --text-about--line-height: 1.6;
+  --text-invite: clamp(1.25rem, 1.111rem + 0.571vw, 1.625rem);
+  --text-invite--line-height: 1.5;
+
+  --text-headline: clamp(2.25rem, 1.693rem + 2.286vw, 3.75rem);
+  --text-headline--line-height: 1.15;
+  --text-headline--letter-spacing: -0.025em;
+  --text-sub: clamp(1.063rem, 0.9rem + 0.667vw, 1.5rem);
+  --text-sub--line-height: 1.5;
+  --text-card-title: clamp(1.875rem, 1.271rem + 2.476vw, 3.5rem);
+  --text-card-title--line-height: 1.08;
+  --text-card-title--letter-spacing: -0.02em;
+  --text-card-body: clamp(1rem, 0.907rem + 0.381vw, 1.25rem);
+  --text-card-body--line-height: 1.5;
+  --text-chip: clamp(1.125rem, 0.986rem + 0.571vw, 1.5rem);
+  --text-chip--line-height: 1.3;
+  --text-whatsup: clamp(1.375rem, 1.236rem + 0.571vw, 1.75rem);
+  --text-whatsup--line-height: 1.2;
+  --text-web-title: clamp(2.25rem, 1.693rem + 2.286vw, 3.75rem);
+  --text-web-title--line-height: 1.05;
+  --text-web-title--letter-spacing: -0.03em;
+  --text-web-body: clamp(0.938rem, 0.845rem + 0.381vw, 1.188rem);
+  --text-web-body--line-height: 1.55;
+  --text-how: clamp(1.75rem, 1.379rem + 1.524vw, 2.75rem);
+  --text-how--line-height: 1.15;
+  --text-how--letter-spacing: -0.015em;
+  --text-how-body: clamp(1.063rem, 0.946rem + 0.476vw, 1.375rem);
+  --text-how-body--line-height: 1.55;
+
+  /* Space Mono labels: tracking is 8–10% of the size throughout the file. */
+  --text-label: clamp(0.688rem, 0.641rem + 0.19vw, 0.813rem);
+  --text-label--line-height: 1.3;
+  --text-label--letter-spacing: 0.08em;
+  --text-cta: clamp(0.75rem, 0.704rem + 0.19vw, 0.875rem);
+  --text-cta--line-height: 1.3;
+  --text-cta--letter-spacing: 0.08em;
+  --text-email: clamp(0.75rem, 0.68rem + 0.286vw, 0.938rem);
+  --text-email--line-height: 1.3;
+  --text-email--letter-spacing: 0.04em;
+  --text-foot: clamp(0.625rem, 0.579rem + 0.19vw, 0.75rem);
+  --text-foot--line-height: 1.3;
+  --text-foot--letter-spacing: 0.1em;
+  --text-stack: clamp(0.625rem, 0.602rem + 0.095vw, 0.688rem);
+  --text-stack--line-height: 1.3;
+  --text-stack--letter-spacing: 0.06em;
+  --text-tag: clamp(0.688rem, 0.664rem + 0.095vw, 0.75rem);
+  --text-tag--line-height: 1.3;
+  --text-tag--letter-spacing: 0.06em;
+
+  --shadow-paper: 0 4px 10px rgb(0 0 0 / 0.12);
+  --shadow-lift: 0 10px 28px rgb(0 0 0 / 0.14);
+  --shadow-lifted: 0 16px 36px rgb(0 0 0 / 0.18);
+}
+
+:root {
+  /* 20px page margin at 390, 120px at 1440. */
+  --gutter: clamp(1.25rem, -1.071rem + 9.524vw, 7.5rem);
+  /* Ruled notebook lines: 28px apart at 390, 34px at 1440. */
+  --rule: clamp(28px, 25.771px + 0.571vw, 34px);
+  --header-h: 64px;
+  --color-focus: var(--color-yellow);
+  /*
+   * Paper pieces (tags, notes, polaroids, tape) are sized in Figma 1440 pixels
+   * times --px. The 390 frame draws them ~0.84× as big, so --px runs 0.84px →
+   * 1px across the small layout. From 1024 up it's the viewport's share of the
+   * 1440 frame, so the desktop compositions scale as one piece (capped at 1).
+   */
+  --px: clamp(0.84px, 0.7414px + 0.0253vw, 1px);
+
+  @media (width >= 64rem) {
+    --px: calc(min(100vw, 1440px) / 1440);
+  }
+
+  @media (width < 64rem) {
+    --header-h: 56px;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-paper font-sans text-ink;
+    /* A 1px line in --line every --rule, like the Figma "Ruled lines" frame. */
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0 calc(var(--rule) - 1px),
+      var(--color-line) calc(var(--rule) - 1px) var(--rule)
+    );
+    /* First line at y=17 (1440) / y=14 (390), as in Figma. */
+    background-position: 0 calc(1px - var(--rule) / 2);
+  }
+
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+
+  /* Yellow is the brand focus colour; on yellow surfaces the ring turns ink. */
+  :focus-visible {
+    outline-width: 3px;
+    border-radius: 2px;
+  }
+}
+
+@utility container-page {
+  width: min(100% - 2 * var(--gutter), 75rem);
+  margin-inline: auto;
+}
+
+@utility surface-yellow {
+  --color-focus: var(--color-ink);
+}
+
+/* Paper things: a press state, and a lift + straighten on hover where hover is real. */
+@utility press {
+  transition:
+    scale 160ms var(--ease-out-expo),
+    translate 400ms var(--ease-out-expo),
+    rotate 400ms var(--ease-out-expo),
+    box-shadow 400ms var(--ease-out-expo);
+
+  &:active {
+    scale: 0.98;
+  }
+}
+
+@utility lift {
+  transition:
+    translate 450ms var(--ease-out-expo),
+    rotate 450ms var(--ease-out-expo),
+    box-shadow 450ms var(--ease-out-expo);
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    &:hover {
+      translate: 0 -4px;
+      rotate: calc(var(--tilt, 0deg) * 0.3);
+      box-shadow: var(--shadow-lifted);
+    }
+  }
+}
+
+/* A tilted element: rotate by --tilt (Figma's angle, clockwise positive). */
+@utility tilt {
+  rotate: var(--tilt, 0deg);
+}
+
+/* Sticky notes give a little wiggle as they scroll into view. */
+@utility wiggle-in {
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      animation: wiggle linear both;
+      animation-timeline: view();
+      animation-range: entry 30% cover 35%;
+    }
+  }
+}
+
+/*
+ * Hand-drawn arrows draw themselves in on scroll (paths with pathLength=1).
+ * Without scroll-driven animations, or with reduced motion, they're just drawn.
+ */
+@utility draw-in {
+  view-timeline: --draw;
+
+  & .draw {
+    stroke-dasharray: 1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      & .draw {
+        animation: draw linear both;
+        animation-timeline: --draw;
+        animation-range: entry 20% cover 40%;
+      }
+
+      & .draw-late {
+        animation-range: cover 35% cover 48%;
+      }
+    }
+  }
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+/* Hero load: start at 0.01 opacity so first paint still counts for LCP. */
+@keyframes drop-in {
+  from {
+    opacity: 0.01;
+    translate: 0 -14px;
+    rotate: calc(var(--tilt, 0deg) - 6deg);
+  }
+  70% {
+    translate: 0 2px;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0.01;
+    translate: 0 14px;
+  }
+}
+
+/* The name box draws its top edge left to right, then its sides down. */
+@keyframes draw-box {
+  from {
+    clip-path: inset(0 100% calc(100% - 4px) 0);
+  }
+  45% {
+    clip-path: inset(0 0 calc(100% - 4px) 0);
+  }
+}
+
+/* A letter of the pixel name switching on (steps(1): no fade, like a screen). */
+@keyframes pixel-on {
+  from {
+    opacity: 0.01;
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    rotate: var(--tilt, 0deg);
+  }
+  30% {
+    rotate: calc(var(--tilt, 0deg) - 3deg);
+  }
+  65% {
+    rotate: calc(var(--tilt, 0deg) + 2deg);
+  }
+}
+
+/* The Let's talk smiley: blinks every few seconds; grins while the email button is hovered. */
+.smiley-eyes,
+.smiley-mouth {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+
+.smiley-mouth {
+  transform-origin: 50% 0;
+  transition: scale 450ms var(--ease-out-expo);
+}
+
+.talk:has(.talk-email:hover, .talk-email:focus-visible) .smiley-mouth {
+  scale: 1.12 1.7;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .smiley-eyes {
+    animation: blink 5.5s 2s infinite;
+  }
+}
+
+@keyframes blink {
+  0%,
+  94%,
+  100% {
+    scale: 1 1;
+  }
+  96% {
+    scale: 1 0.1;
+  }
+}
