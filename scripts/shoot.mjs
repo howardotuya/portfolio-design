@@ -31,6 +31,9 @@ try {
     });
     await page.goto(`http://localhost:${port}${route}`, { waitUntil: "networkidle" });
     await page.evaluate(() => document.fonts.ready);
+    // content-visibility: auto skips sections that are off screen; a full-page
+    // capture needs them all rendered (before the walk, so their images load).
+    await page.addStyleTag({ content: "* { content-visibility: visible !important; }" });
     // Walk the page so lazy images and in-view reveals load before the capture.
     await page.evaluate(async () => {
       for (let y = 0; y < document.body.scrollHeight; y += 600) {
@@ -40,7 +43,7 @@ try {
       window.scrollTo(0, 0);
     });
     await page.waitForLoadState("networkidle");
-    await page.waitForTimeout(400);
+    await page.waitForTimeout("motion" in flags ? 1500 : 400);
     const file = path.join(outDir, `${slug}-${width}.png`);
     await page.screenshot({ path: file, fullPage: true });
     console.log(file);
