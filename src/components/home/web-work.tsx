@@ -6,7 +6,9 @@ import { BrowserWindow, fs, Note, Pill, px, Tape } from "../paper";
 
 // Figma 4:180–4:182 + 60:23–60:102 (1440) / 8:130–8:132 + 60:107–60:173 (390).
 // Rows alternate window-left / window-right. Positions below are Figma pixels
-// relative to the (unrotated) browser window's top-left.
+// relative to the (unrotated) browser window's top-left. Each note's x was set
+// for its own text in Figma (Kòbò 711, Èkó Fest 731), so it moves with the
+// project when the order changes.
 
 const rows = [
   {
@@ -14,7 +16,7 @@ const rows = [
     mobileTilt: 1,
     tapeTop: -20,
     textTop: 31,
-    note: [711, 479, -2],
+    note: [731, 478, -2],
     arrow: [490, 415],
     flip: false,
   },
@@ -32,7 +34,7 @@ const rows = [
     mobileTilt: 1,
     tapeTop: -20,
     textTop: 31,
-    note: [731, 478, -2],
+    note: [711, 479, -2],
     arrow: [490, 415],
     flip: false,
   },

@@ -19,18 +19,19 @@ export type WebProject = {
   status: "building" | "live";
 };
 
+// Howard's order (2026-10-23): Èkó Fest, Bùkà, Kòbò. "Web 0n" follows it.
 export const webProjects: WebProject[] = [
   {
-    slug: "kobo",
-    name: "Kòbò",
+    slug: "ekofest",
+    name: "Èkó Fest",
     number: "Web 01",
-    category: "SaaS",
-    colour: "yellow",
-    line: "Invoicing for Nigerian freelancers. A landing page and a demo dashboard.",
-    stack: ["Next.js", "Tailwind", "Motion"],
-    note: "watch the invoice get paid",
-    url: "https://kobo.howardotuya.com",
-    thumbnail: "web/kobo",
+    category: "Festival",
+    colour: "pink",
+    line: "Three nights of music. A live countdown, ticket tiers and a road-map schedule.",
+    stack: ["Next.js", "SVG", "CSS scroll"],
+    note: "the road draws itself as you scroll",
+    url: "https://ekofest.howardotuya.com",
+    thumbnail: "web/ekofest",
     status: "building",
   },
   {
@@ -47,16 +48,16 @@ export const webProjects: WebProject[] = [
     status: "building",
   },
   {
-    slug: "ekofest",
-    name: "Èkó Fest",
+    slug: "kobo",
+    name: "Kòbò",
     number: "Web 03",
-    category: "Festival",
-    colour: "pink",
-    line: "Three nights of music. A live countdown, ticket tiers and a road-map schedule.",
-    stack: ["Next.js", "SVG", "CSS scroll"],
-    note: "the road draws itself as you scroll",
-    url: "https://ekofest.howardotuya.com",
-    thumbnail: "web/ekofest",
+    category: "SaaS",
+    colour: "yellow",
+    line: "Invoicing for Nigerian freelancers. A landing page and a demo dashboard.",
+    stack: ["Next.js", "Tailwind", "Motion"],
+    note: "watch the invoice get paid",
+    url: "https://kobo.howardotuya.com",
+    thumbnail: "web/kobo",
     status: "building",
   },
 ];
