@@ -6,6 +6,8 @@ import { fs, Polaroid, px, TapeChip } from "../paper";
 // Figma 4:72–4:101 (1440) / 8:43–8:66 (390). Desktop: the 1440 composition,
 // scaled; coordinates are from the top of the curve divider (y 800).
 
+// Labels are ink except on blue: white on the green and pink chips fails AA at
+// the 18px mobile size (Howard chose ink at every size, 2026-10-23).
 const chips = [
   // Figma widths at the 24px label size; the 390 frame swaps two outlines.
   { width: 232, shape: "slant", mobileShape: "zigzag" },
@@ -92,7 +94,7 @@ export function About() {
               key={skill.label}
               label={skill.label}
               colour={skill.colour}
-              light={skill.colour !== "yellow"}
+              light={skill.colour === "blue"}
               {...chips[i]!}
             />
           ))}

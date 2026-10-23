@@ -10,7 +10,8 @@ import { Picture } from "../picture";
 // stack as you scroll: each is sticky, a tab's height lower than the last,
 // so a new card slides over the previous one and every tab stays in view.
 
-const onDark = new Set<Project["colour"]>(["dark", "blue", "pink"]);
+// White text only where it passes AA; the pink card takes ink text (Howard, 2026-10-23).
+const onDark = new Set<Project["colour"]>(["dark", "blue"]);
 const cardBg = {
   dark: "bg-dark",
   yellow: "bg-yellow",

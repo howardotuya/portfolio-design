@@ -24,7 +24,13 @@ const meta = [
   { key: "year", label: "Year", colour: "pink", angle: -3, x: 1212, y: 350 },
 ] as const;
 
-const metaBg = { blue: "bg-blue", beige: "bg-beige", mint: "bg-mint", pink: "bg-pink" };
+// Ink on the Portfolio blue is 2.9:1, so the Role note takes white text.
+const metaBg = {
+  blue: "bg-blue text-white",
+  beige: "bg-beige text-ink",
+  mint: "bg-mint text-ink",
+  pink: "bg-pink text-ink",
+};
 
 function Label({ children, className }: { children: string; className?: string }) {
   return (
@@ -114,7 +120,7 @@ function ProjectHero({ project }: { project: Project }) {
           <div
             key={m.key}
             className={cn(
-              "flex tilt flex-col gap-1 px-3.5 py-2.5 text-ink lg:absolute lg:top-(--y) lg:left-(--x) lg:w-(--w) lg:-translate-1/2 lg:gap-(--g) lg:px-(--px-x) lg:py-(--px-y) lg:[--tilt:var(--angle)]",
+              "flex tilt flex-col gap-1 px-3.5 py-2.5 lg:absolute lg:top-(--y) lg:left-(--x) lg:w-(--w) lg:-translate-1/2 lg:gap-(--g) lg:px-(--px-x) lg:py-(--px-y) lg:[--tilt:var(--angle)]",
               metaBg[m.colour],
             )}
             style={
